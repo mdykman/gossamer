@@ -92,7 +92,7 @@ The first 2 levels under the `xsl/` directory have special meaning.
 
  ==== Fallback Resolution ====
 
-Fallbacks are configured within an embedded SQLite database tablename FALLBACKS , stored in etc/wurfl.db.  In the absence of an administration tool, this table may be viewed and manipulated with the sqlite CLI interface.
+Fallbacks are configured within an embedded SQLite database table named `FALLBACKS`, stored in etc/wurfl.db.  In the absence of an administration tool, this table may be viewed and manipulated with the sqlite CLI interface.
 
 When a view is set by the controller, ie. `vm.setView('welcome.html')`, the view manager considers the user's style and the requested format.  If no format has been explicitly set by the controller, the device's `preferred_format` attribute is consulted, which is typically, `xhtml-1.0`.  So we search for the template at the path:
 {{{
@@ -107,12 +107,28 @@ which would find no template.  The template manager would then check to see if t
 {{{ 
 xsl/default/xhtml-1.0/welcome.html 
 }}}
-where the template is found.  The timestamp from this template is used in generating the xsl filename to be bound, but the xsl name will be generated to the originally targeted folder.
+where the template is found.  The timestamp from this template is used in generating the xsl filename to be bound, but the xsl name generated will be bound to the originally targeted folder.
 {{{ 
 xsl/special/xhtml-1.0/welcome.html$<hash>.xsl 
 }}}
 
 The [Dexter Dexter Servlet] uses the same fallback mechanics to locate the source and generate the requested xsl file.
+
+When, in addition to setting a view, a _format_ is explicitly set by the controller, ie. 
+{{{
+  vm.setView('rss.xml')
+  vm.setFormat('rss2.0')
+}}}
+ the view manager will find the template at.
+{{{
+xsl/default/rss2.0/rss.xml 
+}}}
+
+Additionlly, is will consult the [Device] object,  to set the appropriate mime-type far this content and client via
+{{{
+device.getAttribute('rss2.0_mime_type')
+}}}
+Which defuaults to `application/xml+rss`
 
  == XSL Generation ==
 
