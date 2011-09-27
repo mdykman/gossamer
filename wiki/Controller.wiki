@@ -1,9 +1,66 @@
+
 Here, we will describe the environment shared by all controllers, regardless of the scripting language.
 
 
+ == Result Values ==
+
+In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
+
  == Global Variables ==
 
- [Globals] 
+The [Globals global variables] are only visible to controller.  References to them, or objects they produce may be passed into library routines.
+
+{{{
+ruby:
+c = $jdbc.get('user')
+return getResult(c,args)
+}}}
+Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml) and passes it to a routine expecting a JDBC connection and a Map of parameters. 
+
+
+ == Direct Output ==
+
+For those odd occasions when Gossamer's model of object-to-formatted output does not meet the task at hand, your controller may instead choose to generate response data directly.
+
+ The [Globals#Writer writer] is used to effect direct-to-stream output.  The stdout of each scrip engine is bound to the HttpResponse Writer and so is designed for character output.  To effect binary output, the output stream should be acquired from the writer.
+
+The writer is also used to set the content type of the direct response.
+
+It should be noted that controllers so written will not respond to the view modes.  The output will be exactly as it has been coded to be.
+
+ === Emitting a Text Response Directly ===
+{{{
+in groovy:
+  writer.setMimeType('text/plain')
+  println """
+This is a simple
+block of text
+"""
+//return null to signal to gossamer no further processing is required.
+return null
+
+}}}
+
+ === Emitting a Binary Directly ===
+{{{
+in groovy:
+writer.setMimeType('image/png');
+
+def proc = "dot -T png".execute()
+// fill the process' stdin
+proc.getOutputStream() <<< """
+digraph g {
+  A->B
+  B->C
+  A->C
+}
+""";
+// dump process stdout to web output stream 
+def out = writer.getOutputStream();
+out << proc.getInputStream();
+
+return null
+}}}
 
  == Supported Languages ==
 
