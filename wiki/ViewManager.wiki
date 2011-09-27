@@ -1,0 +1,47 @@
+
+ == vm - View Manager ==
+
+{{{
+  vm.setView(view)
+}}}
+Selects the document to be used to format the current page. In a simple view layout, the directory GOSSAMER_HOME/xsl is searched.
+  {{{
+groovy:  vm.view = 'index.html'
+groovy:  vm.setView('tour.html')
+ruby:    $vm.setView('examples/ruby.html')
+
+}}}
+The above example would find these files respectively.
+
+  /opt/gossamer/xsl/index.html
+
+  /opt/gossamer/xsl/tour.html
+
+  /opt/gossamer/xsl/examples/ruby.html
+ ----
+
+{{{
+  vm.setFormat(format)
+}}}
+  Overrides the 'preferred_format' for the current request only.  This only used in conjunction with the extended view layout.
+ ----
+
+{{{
+  vm.setStyle(style) 
+}}}
+  Overrides the output style (default:'default') for the lifetime of the current session.  This only used in conjunction with the extended view layout.
+ ----
+
+{{{
+  vm.setStatus(code)
+}}}
+  Used to force any status other than 200 - OK.
+ ----
+
+{{{
+  vm.redirect(url)
+}}}
+  Direct the client to follow a 302 redirect.  This method causes an immediate redirect and does not return.
+ ----
+
+See [View] for details on both the simple and the extended layout and how the view document is used.
