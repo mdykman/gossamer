@@ -10,13 +10,4 @@ groovy:       session.foo = 'bar'; session.set('foo') = "bar";
 python:       mykeys = session.entrySet()
 }}}
  ----
-
-{{{
-   session.get(key)
-
-python:       val = session.get('foo')
-groovy:       def val = session.foo; val= session.get('foo')
-javascript:   var val = session.get('foo');
-}}}
- ----
  return to [Globals].
