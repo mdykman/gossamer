@@ -1,0 +1,52 @@
+ = The View =
+
+ == View Modes ==
+
+Gossamer takes a different approach to the view. The format for a typical request is influenced by the client making that request.  As a typical controller script returns an object to the system, that object may be rendered in one of several ways without the need to recode the controller to accomdate it.
+
+The 4 view modes are:
+ * json
+ * xml
+ * render
+ * rq
+
+Any request to a controller under Gossamer, requires that the request be prefixed with one of these modes.
+
+The 2 simplest of these request modes are demonstrated below.
+
+`/json/myscript` # the result is rendered as json notation, with appropriate mime-type set.
+`/xml/myscript` # the result is rendered as XML markup, with appropriate mime-type set.
+
+The other 2 view modes are related to the view manager and are somewhat more sophisticated. They require that the controller specifies a view for that request.
+
+/render/myscript
+/rq/myscript
+
+
+ == View Manager ==
+
+In groovy, specifying that view would be done like so:
+`vm.view="myview.html"`
+
+In ruby:
+`$vm.setView('myview.html')`
+
+`vm` is the view manager, one of several global variables available to all controllers, regardless of the scripting language.
+
+When that view is set, the mangager searches `$GOSSAMER_HOME/xsl/` for `myview.html`.  Assuming that we are using the simple view layout (see Layouts below), we expect to find that at `xsl/myview.html`.  This view is used by Dexter to generate an XSL file which will be used to format the output.
+
+When invoked via /render/myscript, the result from the controller is rendered as XML and is then transformed, on the server-side, into the resulting document.
+
+When invoked via /rq/myscript, the device identification system decides whether or not the requesting client (ie. the web browser) is itself capable of performing client-side XSL transformations.  If it is (as all modern desktop browsers are), The rendered XML is decorated with a processing instruction referencing the about-to-be-generated XSL and the client performs the rendering itself. If not, it is rendered server-side in the same manner as `render`.
+
+If no view is specified, or if the specified view is not found, `rq` and `render` both behave exactly as `xml`.
+
+
+The view document is ignored when rendering for json or xml.
+
+
+ == File Layout ==
+
+There are 2 ways of deploying view templates, the easy way which accomodates most applications or the strategic way, which lends multi-device  support and white-labelling to your application.
+
+The Easy Way.  
