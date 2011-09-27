@@ -12,7 +12,6 @@ These variables are visible to controllers in all scripting engines.
  *	jdbc    - the JDBC connection manager
  *	hsf     - Hibernate session factory manager
  *	writer  - used to emit raw responses
-instance of gossamer 
  *	factory - a proxy for the spring bean factory
  *	request - the HttpServletRequest object
  *	response - the HttpServletResponse object
