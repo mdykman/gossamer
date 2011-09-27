@@ -46,4 +46,4 @@ The above example would find these files respectively.
   Direct the client to follow a 302 redirect.  This method causes an immediate redirect and does not return.
  ----
 
- back to [Globals]
+ back to [Globals].
