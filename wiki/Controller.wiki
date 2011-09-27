@@ -1,5 +1,21 @@
 Here, we will describe the environment shared by all controllers, regardless of the scripting language.
 
+ == Scripts ==
+
+Gossamer controller Scripts may be written in a variety of languages.  We leverage the JSR223 Script Engine Interface to create an interface which allows many languages to plug to the environment with only the slightest of configuration.
+
+See [ScriptEngines Script Engines] for notes on each of the currently integrated langauges as well as notes on extending Gossamer with new languages.
+
+ == Supported Languages ==
+
+ * groovy
+ * javascript
+ * ruby(jruby)
+ * python(python)
+ * tcl
+ * PHP
+ * scheme
+ * sleep
 
  == Result Values ==
 
@@ -28,6 +44,13 @@ return getResult(c,args)
 }}}
 Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml) and passes it to a routine expecting a JDBC connection and a Map of parameters. 
 
+Some of the most important of these [Globals Global Variables] are listed below.
+
+ === vm ===
+
+ === jdcb ===
+
+ === hsf ===
 
  == Direct Output ==
 
@@ -72,14 +95,3 @@ out << proc.getInputStream();
 
 return null
 }}}
-
- == Supported Languages ==
-
- * groovy
- * javascript
- * ruby(jruby)
- * python(python)
- * tcl
- * PHP
- * scheme
- * sleep
