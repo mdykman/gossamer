@@ -2,9 +2,9 @@ A tour of GOSSAMER_HOME.
 
 Many of these files are documented more thoroughly elsewhere; here is a high-level overview:
 
- # /etc/ # miscellaneous files
-	# rewrite.rules # rules for rewriting incoming requests
-	# rewrite.test# (option) tests for rewrite rules
+ * /etc/ # miscellaneous files
+        ** rewrite.rules # rules for rewriting incoming requests
+        ** rewrite.test# (option) tests for rewrite rules
    authors # authentication for the script console
 	wurflite.db # sqlitedb for device identification
 /log/ # logs files maintained by gossamer subsystems
