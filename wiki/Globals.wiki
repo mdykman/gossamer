@@ -1,7 +1,7 @@
  = Global Variables =
 
 These variables are visible to controllers in all scripting engines.
- *	vm      - the view manager
+ *	[ViewManager vm] - the view manager
  *	session - the user session
  *	uploads - the upload manager
  *	site    - interface to user.properties
