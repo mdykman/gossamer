@@ -22,14 +22,14 @@ controllers
 
  == session - User Session ==
 
-This provides our interface to session-level storage. It support 2 methods:
+This provides our interface to session-level storage. It is implemented as a Concurrent HashMap and therefore supports the full Map API.
 
 {{{
-   session.set(key,value)
-
 ruby:         $session.set("foo","bar")
+ruby:         $sesion.remove('garbage')
 javascript:   session.set('foo','bar');
 groovy:       session.foo = 'bar'; session.set('foo') = "bar";
+python:       mykeys = session.entrySet()
 }}}
 ----
 
