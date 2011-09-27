@@ -1,4 +1,4 @@
-= upload - The Upload Manager =
+= uploads - The Upload Manager =
 
 Much of the heavy lifting involved in accepting a file upload in provided by Gossamer at the filter level.  Any file upload directed at a Gossamer service is preprocessed by that filter.  The upload manager provides controllers an interface an interface to those results.
 
@@ -12,21 +12,21 @@ in Javascript:
 {{{
 // f is a string, a key for the upload manager
 var f = args.get('myupload');
-var ul = upload.getUpload(f);
+var ul = uploads.getUpload(f);
 }}}
 
 At this point we have a reference to a `FileUpload` object, which contains the following read-only fields to be accessed through standard getters.
 {{{
-	size - the file size
-	uploadTime - time of upload (as measured by the server)
-        originName - the original name of the file
-        storagePath - the absolute path to where on the system that file currently resides.
-        mimeType - the mime-type as determined by the system
-        secureHash - an MD5 hash of the content
-        remoteAddress - the IP address from which the file was apparently received.
+  size - the file size
+  uploadTime - time of upload (as measured by the server)
+  originName - the original name of the file
+  storagePath - the absolute path to where on the system that file currently resides.
+  mimeType - the mime-type as determined by the system
+  secureHash - an MD5 hash of the content
+  remoteAddress - the IP address from which the file was apparently received.
 }}}
 
-to continue our javascript controller,
+  to continue our javascript controller,
 {{{
 var file = new java.util.File(ul.getStoragePath());
 file.renameTo('/my/new/path/' + ul.getOriginName());
@@ -36,6 +36,6 @@ In moving the file, the controller is effectively keeping it, as it would otherw
  ----
 
 {{{
- var uls = upload.getUploads() 
+ var uls = uploads.getUploads() 
 }}}
  returns an array of Strings, each one the key of a file upload. Passing each of these Strings in turn to `upload.getUpload()` produces a `FileUpload` object.
