@@ -2,7 +2,7 @@
 
  == View Modes ==
 
-Gossamer takes a different approach to the view. The format for a typical request is influenced by the client making that request.  As a typical controller script returns an object to the system, that object may be rendered in one of several ways without the need to recode the controller to accomdate it.
+Gossamer takes a different approach to the view. The format for a typical request is influenced by the client making that request.  As a typical controller script returns an object to the system, that object may be rendered in one of several ways without the need to recode the controller to accommodate it.
 
 The 4 view modes are:
  * json
@@ -25,7 +25,7 @@ The other 2 view modes are related to the view manager and are somewhat more sop
 
  == View Manager ==
 
-In groovy, specifying that view would be done like so:
+In a groovy controller, specifying that view would be done like so:
 {{{
 vm.view="myview.html"
 }}}
@@ -37,7 +37,9 @@ $vm.setView('myview.html')
 
 `vm` is the view manager, one of several global variables available to all controllers, regardless of the scripting language.
 
-When that view is set, the mangager searches `$GOSSAMER_HOME/xsl/` for `myview.html`.  Assuming that we are using the simple view layout (see Layouts below), we expect to find that at `xsl/myview.html`.  This view is used by Dexter to generate an XSL file which will be used to format the output.
+The view documents may be any valid, well-formed XML, such as XHTML, RSS or a RESP response envelope. Typically, there are marked up with [http://code.google.com/p/dexter-xsl/wiki/UserManual Dexter] attributes to bind the application data to that layout.
+
+When that view is set, the mangager searches `$GOSSAMER_HOME/xsl/` for `myview.html`.  Assuming that we are using the simple view layout (see Layouts below), we expect to find that at `xsl/myview.html`.  This view is automatically used by [http://code.google.com/p/dexter-xsl/ Dexter] to generate an XSL file which will be used to format the output.
 
 When invoked via /render/myscript, the result from the controller is rendered as XML and is then transformed, on the server-side, into the resulting document.
 
@@ -51,6 +53,12 @@ The view document is ignored when rendering for json or xml.
 
  == File Layout ==
 
-There are 2 ways of deploying view templates, the easy way which accomodates most applications or the strategic way, which lends multi-device  support and white-labelling to your application.
+There are 2 ways of deploying view templates:
+ * Simple Layout which accomodates most applications
+ * Extended Layout, which lends multi-device support and white-labelling.
 
-The Easy Way.  
+ === Simple Layout ===
+
+The plan of the simple layout is to place your HTML format files
+
+ === Extended Layout ===
