@@ -33,7 +33,9 @@ ruby:    $vm.setView('examples/ruby.html')
 The above example would find these files respectively.
 
   /opt/gossamer/xsl/index.html
+
   /opt/gossamer/xsl/tour.html
+
   /opt/gossamer/xsl/examples/ruby.html
  ----
 {{{
@@ -44,4 +46,4 @@ The above example would find these files respectively.
   vm.setStyle(style) 
 }}}
 
-See The [View] for details on how the view document is used.
+See [View] for details on how the view document is used.
