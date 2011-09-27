@@ -18,17 +18,23 @@ These variables are visible to controllers in all scripting engines.
  *	id      - the runtime identifier; (usage is fuzzy ATM)
 
  == vm - View Manager ==
+
 {{{
   vm.setView(view)
 }}}
 Selects the document to be used to format the current page. In a simple view layout, the directory GOSSAMER_HOME/xsl is searched.
 {{{
 groovy:  vm.view = 'index.html'
-groovy:  vm.setvView('index.html')
+groovy:  vm.setvView('tour.html')
 
 ruby:    $vm.setView('examples/ruby.html')
 
 }}}
+The above example would find these files respectively.
+
+  /opt/gossamer/xsl/index.html
+  /opt/gossamer/xsl/tour.html
+  /opt/gossamer/xsl/examples/ruby.html
  ----
 {{{
   vm.setFormat(format)
@@ -37,3 +43,5 @@ ruby:    $vm.setView('examples/ruby.html')
 {{{
   vm.setStyle(style) 
 }}}
+
+See The [View] for details on how the view document is used.
