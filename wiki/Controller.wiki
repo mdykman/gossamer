@@ -46,6 +46,7 @@ Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml
 
 Some of the most important of these [Globals Global Variables] are listed below.
 
+ === [RequestArgs args] ===
  === [ViewManager vm] ===
  === [Session session] ===
  === [RequestInfo requestInfo] ===
