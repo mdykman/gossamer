@@ -1,0 +1,17 @@
+Here, we will describe the environment shared by all controllers, regardless of the scripting language.
+
+
+ == Global Variables ==
+
+ [Globals] 
+
+ == Supported Languages ==
+
+ * groovy
+ * javascript
+ * ruby(jruby)
+ * python(python)
+ * tcl
+ * PHP
+ * scheme
+ * sleep
