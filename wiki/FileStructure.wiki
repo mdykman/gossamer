@@ -1,0 +1,20 @@
+A tour of GOSSAMER_HOME.
+
+Many of these files are documented more thoroughly elsewhere; here is a high-level overview:
+
+/etc/ # miscellaneous files
+	rewrite.rules # rules for rewriting incoming requests
+	rewrite.test# (option) tests for rewrite rules
+   authors # authentication for the script console
+	wurflite.db # sqlitedb for device identification
+/log/ # logs files maintained by gossamer subsystems
+	device.log # device recognition
+	dexter.log # XSL generation
+	script.log # script execution
+/scripts # the server-side scripts
+	controllers # the scripts which directly handle request 
+	library # additional class-path for scripts and engine related libs
+/tools # utility scripts for dealing with administration
+/webapp # the home of the underlaying WAR
+/www # static files, ie. Javascript, CSS, HTML
+/xsl # view templates, ie, marked up HTML which provide response formatting 
