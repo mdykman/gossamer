@@ -41,7 +41,7 @@ $vm.setView('myview.html')
 
 `vm` is the view manager, one of several global variables available to all controllers, regardless of the scripting language.
 
-The view documents may be any valid, well-formed XML, such as XHTML, RSS or a RESP response envelope. Typically, there are marked up with [http://code.google.com/p/dexter-xsl/wiki/UserManual Dexter] attributes to bind the application data to that layout.
+The view documents may be any valid, well-formed XML, such as XHTML, RSS or a RESP response envelope. Typically, these are marked up with [http://code.google.com/p/dexter-xsl/wiki/UserManual Dexter] attributes to bind the application data to that layout.
 
 Throughout this document, we may refer to Dexter source files as _templates_.
 
