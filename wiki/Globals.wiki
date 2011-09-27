@@ -50,7 +50,19 @@ The above example would find these files respectively.
 {{{
   vm.setStyle(style) 
 }}}
-  Overrides the output style for the lifetime of the current session.  This only used in conjunction with the extended view layout.
+  Overrides the output style (default:'default') for the lifetime of the current session.  This only used in conjunction with the extended view layout.
+ ----
+
+{{{
+  vm.setStatus(code)
+}}}
+  Used to force any status other than 200 - OK.
+ ----
+
+{{{
+  vm.redirect(url)
+}}}
+  Direct the client to follow a 302 redirect.  This method causes an immediate redirect and does not return.
  ----
 
 See [View] for details on both the simple and the extended layout and how the view document is used.
