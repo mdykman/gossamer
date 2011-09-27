@@ -3,7 +3,7 @@
 These variables are visible to controllers in all scripting engines.
  *	[ViewManager vm] - the view manager
  *	[Session session] - the user session
- *	uploads - the upload manager
+ *	[Uploads uploads] - the upload manager
  *	site    - interface to site.properties
  *	installBase - a string showing the installation base for this 
  *	requestInfo - simplified interface to information about the 
