@@ -41,11 +41,13 @@ The above example would find these files respectively.
 
   /opt/gossamer/xsl/examples/ruby.html
  ----
+
 {{{
   vm.setFormat(format)
 }}}
   Overrides the 'preferred_format' for the current request only.  This only used in conjunction with the extended view layout.
  ----
+
 {{{
   vm.setStyle(style) 
 }}}
