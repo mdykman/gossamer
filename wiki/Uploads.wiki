@@ -39,3 +39,6 @@ In moving the file, the controller is effectively keeping it, as it would otherw
  var uls = uploads.getUploads() 
 }}}
  returns an array of Strings, each one the key of a file upload. Passing each of these Strings in turn to `upload.getUpload()` produces a `FileUpload` object.
+ ----
+ 
+ return to [Globals].
