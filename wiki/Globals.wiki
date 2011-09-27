@@ -2,7 +2,7 @@
 
 These variables are visible to controllers in all scripting engines.
  *	[ViewManager vm] - the view manager
- *	session - the user session
+ *	[Session session] - the user session
  *	uploads - the upload manager
  *	site    - interface to user.properties
  *	installBase - a string showing the installation base for this 
@@ -18,24 +18,3 @@ instance of gossamer
  *	response - the HttpServletResponse object
  *	id      - the runtime identifier; (reserved for future use)
 controllers
-
- == session - User Session ==
-
-This provides our interface to session-level storage. It is implemented as a Concurrent HashMap and therefore supports the full Map API.
-
-{{{
-ruby:         $session.set("foo","bar")
-ruby:         $sesion.remove('garbage')
-javascript:   session.set('foo','bar');
-groovy:       session.foo = 'bar'; session.set('foo') = "bar";
-python:       mykeys = session.entrySet()
-}}}
-----
-
-{{{
-   session.get(key)
-
-python:       val = session.get('foo')
-groovy:       def val = session.foo; val= session.get('foo')
-javascript:   var val = session.get('foo');
-}}}
