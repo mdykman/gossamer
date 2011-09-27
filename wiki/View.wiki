@@ -23,11 +23,13 @@ The other 2 view modes are related to the view manager and are somewhat more sop
 
  == View Manager ==
 
+A reference for the ViewManager object may be found [ViewManager here].  What follows is a description of how it relates to the overall system.
+
  * `/render/myscript`
  * `/rq/myscript`
 
 
-In a groovy controller, specifying that view would be done like so:
+In a groovy controller, to specify a view:
 {{{
 vm.view="myview.html"
 }}}
