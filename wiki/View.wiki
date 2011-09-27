@@ -71,13 +71,14 @@ Very sophisticated apps can be build using the simple layout alone.
  == XSL Generation ==
 
  === Automatic XSL ===
-Typically, when the view manager is instructed to use "foo.html", it is assumed that the file, once found, will be treated as a dexter source file and an XSL file eventually be generated from it.  The modified timestamp of that source file is used as part of the XSL file's name.  These same filename-formation rules are used by the Dexter Servlet which performs the actually compilation when it sees that a corresponding XSL file has not yet been generated for that name.
+Typically, when the view manager is instructed to use "foo.html", it is assumed that the file, once found, will be treated as a [http://code.google.com/p/dexter-xsl/ Dexter] source file and an XSL file eventually be generated from it.  The modified timestamp of that source file is used as part of the XSL file's name.  These same filename-formation rules are used by the Dexter Servlet which performs the actually compilation when it sees that a corresponding XSL file has not yet been generated for that name.
 
+These filename formation rules also insure against over-zealous caches at both the network and the browser levels.  Browser caches in particular seem rather stubborn, but the present naming convention eliminates the problem entirely. 
  === Manual XSL ===
-This is easily effected by using a name which does not directly correspond with a filename on the system.
+This is easily effected by using a name which does not directly correspond with a filename on the system.  Having saved our manually prepared stylesheet as `$GOSSAMER_HOME/xsl/mystyle.xsl`, we then specify in our controller:
  {{{
  vm.setView('mystyle');
 }}}
-The view manager will seek the file 'mystyle' and, failing to find it, will look for `mystyle.xsl` instead.  Upon finding that, the stylesheet is bound with the data.
+The view manager will seek the file 'mystyle' and, failing to find it, will look for `mystyle.xsl` instead.  Upon finding it, that stylesheet is bound with the data.
 
 This is effective under both the simple and the extended layouts.
