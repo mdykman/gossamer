@@ -2,20 +2,23 @@
 
 These variables are visible to controllers in all scripting engines.
  *	vm      - the view manager
- *	writer  - used to emit raw responses
  *	session - the user session
+ *	uploads - the upload manager
+ *	site    - interface to user.properties
+ *	requestInfo - simplified interface to information about the 
+ *	reqp    - the pathinfo, minus the leading slash (deprecated; use requestInfo)     
+ *	rp      - the request processor; used to invoke external 
+ *	id      - the runtime identifier; (usage is fuzzy ATM)
  *	jdbc    - the JDBC connection manager
  *	hsf     - Hibernate session factory manager
- *	uploads - the upload manager
+ *	writer  - used to emit raw responses
  *	installBase - a string showing the installation base for this instance of gossamer 
- *	site    - interface to user.properties
- *	requestInfo - simplified interface to information about the current HTTP request
- *	reqp    - the pathinfo, minus the leading slash (deprecated; use requestInfo.pathInfo which includes the leading slash)
+current HTTP request
+requestInfo.pathInfo which includes the leading slash)
  *	factory - a proxy for the spring bean factory
  *	request - the HttpServletRequest object
  *	response - the HttpServletResponse object
- *	rp      - the request processor; used to invoke external controllers
- *	id      - the runtime identifier; (usage is fuzzy ATM)
+controllers
 
  == vm - View Manager ==
 
@@ -45,7 +48,7 @@ The above example would find these files respectively.
  ----
 {{{
   vm.setStyle(style) 
-  Overrides the output style for the lifetime of the current session.  This only used in conjunction with the extended view layout.
 }}}
-
+  Overrides the output style for the lifetime of the current session.  This only used in conjunction with the extended view layout.
+ ----
 See [View] for details on both the simple and the extended layout and how the view document is used.
