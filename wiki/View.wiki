@@ -104,11 +104,15 @@ If we had specified a _style_ thus: `vm.setStyle('special')`, we first would hav
 {{{ xsl/special/xhtml-1.0/welcome.html }}}
 
 which would find no template.  The template manager would then check to see if the style 'special' has a fallback defined.  In the gossamer distribution, as shipped, 'special' has the assigned fallback 'default', so the next path to be searched is
-{{{ xsl/default/xhtml-1.0/welcome.html }}}
+{{{ 
+xsl/default/xhtml-1.0/welcome.html 
+}}}
 where the template is found.  The timestamp from this template is used in generating the xsl filename to be bound, but the xsl name will be generated to the originally targeted folder.
-{{{ xsl/special/xhtml-1.0/welcome.html$<hash>.xsl }}}
+{{{ 
+xsl/special/xhtml-1.0/welcome.html$<hash>.xsl 
+}}}
 
-The [Dexter Dexter Servlet] uses the same fallback mechanics to locateg the source and generate the request xsl file.
+The [Dexter Dexter Servlet] uses the same fallback mechanics to locate the source and generate the requested xsl file.
 
  == XSL Generation ==
 
