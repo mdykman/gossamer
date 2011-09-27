@@ -52,4 +52,27 @@ The above example would find these files respectively.
 }}}
   Overrides the output style for the lifetime of the current session.  This only used in conjunction with the extended view layout.
  ----
+
 See [View] for details on both the simple and the extended layout and how the view document is used.
+
+
+ == session - User Session ==
+
+This provides our interface to session-level storage. It support 2 methods:
+
+{{{
+   session.set(key,value)
+
+ruby:         $session.set("foo","bar")
+javascript:   session.set('foo','bar');
+groovy:       session.foo = 'bar'; session.set('foo') = "bar";
+}}}
+----
+
+{{{
+   session.get(key)
+
+python:       val = session.get('foo')
+groovy:       def val = session.foo; val= session.get('foo')
+javascript:   var val = session.get('foo');
+}}}
