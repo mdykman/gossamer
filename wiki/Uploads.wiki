@@ -1,6 +1,6 @@
 = uploads - The Upload Manager =
 
-Much of the heavy lifting involved in accepting a file upload in provided by Gossamer at the filter level.  Any file upload directed at a Gossamer service is preprocessed by that filter.  The upload manager provides controllers an interface an interface to those results.
+Much of the heavy lifting involved in accepting a file upload is provided by Gossamer at the filter level.  Any file upload directed at a Gossamer service is preprocessed by that filter.  The upload manager provides controllers an interface to those results.
 
 If the controller does not explicitly move the file to an application-specific directory in order to keep it, the upload manager guarantees that the file is deleted at the end of the request cycle. 
 
