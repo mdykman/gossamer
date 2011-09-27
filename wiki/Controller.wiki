@@ -46,11 +46,11 @@ Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml
 
 Some of the most important of these [Globals Global Variables] are listed below.
 
- === vm ===
-
- === jdcb ===
-
- === hsf ===
+ === [ViewManager vm] ===
+ === [Session session] ===
+ === [RequestInfo requestInfo] ===
+ === [JDBC jdcb] ===
+ === [HSF hsf] ===
 
  == Direct Output ==
 
