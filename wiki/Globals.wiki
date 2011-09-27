@@ -21,7 +21,14 @@ These variables are visible to controllers in all scripting engines.
 {{{
   vm.setView(view)
 }}}
-selects the document to be used to format the current page.
+Selects the document to be used to format the current page. In a simple view layout, the directory GOSSAMER_HOME/xsl is searched.
+{{{
+groovy:  vm.view = 'index.html'
+groovy:  vm.setvView('index.html')
+
+ruby:    $vm.setView('examples/ruby.html')
+
+}}}
  ----
 {{{
   vm.setFormat(format)
