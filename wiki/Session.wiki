@@ -1,0 +1,22 @@
+ = session - User Session =
+
+This provides our interface to session-level storage. It is implemented as a Concurrent HashMap and therefore supports the full Map API.
+
+{{{
+ruby:         $session.set("foo","bar")
+ruby:         $sesion.remove('garbage')
+javascript:   session.set('foo','bar');
+groovy:       session.foo = 'bar'; session.set('foo') = "bar";
+python:       mykeys = session.entrySet()
+}}}
+ ----
+
+{{{
+   session.get(key)
+
+python:       val = session.get('foo')
+groovy:       def val = session.foo; val= session.get('foo')
+javascript:   var val = session.get('foo');
+}}}
+ ----
+ return to [Globals].
