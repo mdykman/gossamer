@@ -26,10 +26,14 @@ The other 2 view modes are related to the view manager and are somewhat more sop
  == View Manager ==
 
 In groovy, specifying that view would be done like so:
-`vm.view="myview.html"`
+{{{
+vm.view="myview.html"
+}}}
 
 In ruby:
-`$vm.setView('myview.html')`
+{{{
+$vm.setView('myview.html')`
+}}}
 
 `vm` is the view manager, one of several global variables available to all controllers, regardless of the scripting language.
 
