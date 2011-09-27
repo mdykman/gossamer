@@ -1,7 +1,8 @@
+ = Global Variable =
+
+These variables are visible to controllers in all scripting engines.
  *	vm      - the view manager
-
  *	writer  - used to emit raw responses
-
  *	session - the user session
  *	jdbc    - the JDBC connection manager
  *	hsf     - Hibernate session factory manager
@@ -15,3 +16,14 @@
  *	response - the HttpServletResponse object
  *	rp      - the request processor; used to invoke external controllers
  *	id      - the runtime identifier; (usage is fuzzy ATM)
+
+ == vm - View Manager ==
+{{{
+  vm.setView(view)
+}}}
+{{{
+  vm.setFormat(format)
+}}}
+{{{
+  vm.setStyle(style) 
+}}}
