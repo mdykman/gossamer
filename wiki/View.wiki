@@ -124,11 +124,11 @@ When, in addition to setting a view, a _format_ is explicitly set by the control
 xsl/default/rss2.0/rss.xml 
 }}}
 
-Additionlly, is will consult the [Device] object,  to set the appropriate mime-type far this content and client via
+Additionally, upon rendering, Gossamer  will consult the [Device] object to set the appropriate mime-type faor this content and client via
 {{{
 device.getAttribute('rss2.0_mime_type')
 }}}
-Which defuaults to `application/xml+rss`
+  which defaults to `application/xml+rss`.
 
  == XSL Generation ==
 
