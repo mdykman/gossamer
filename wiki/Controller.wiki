@@ -1,10 +1,21 @@
-
 Here, we will describe the environment shared by all controllers, regardless of the scripting language.
 
 
  == Result Values ==
 
 In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
+
+The serializer that renders these objects into json or XML, has very simple rules.  It expect these types, nested at any level:
+ * Lists
+ * Maps
+ * Arrays
+ * Primitives/Primitive Objects
+ * POJOs
+ * DOM Nodes
+
+Objects of other types many cause eccentric behaviour
+
+A facility for plugging in special handlers for specific objects is under development.
 
  == Global Variables ==
 
