@@ -41,9 +41,11 @@ The above example would find these files respectively.
 {{{
   vm.setFormat(format)
 }}}
+  Overrides the 'preferred_format' for the current request only.  This only used in conjunction with the extended view layout.
  ----
 {{{
   vm.setStyle(style) 
+  Overrides the output style for the lifetime of the current session.  This only used in conjunction with the extended view layout.
 }}}
 
-See [View] for details on how the view document is used.
+See [View] for details on both the simple and the extended layout and how the view document is used.
