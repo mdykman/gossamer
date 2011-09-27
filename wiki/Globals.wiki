@@ -21,9 +21,12 @@ These variables are visible to controllers in all scripting engines.
 {{{
   vm.setView(view)
 }}}
+selects the document to be used to format the current page.
+ ----
 {{{
   vm.setFormat(format)
 }}}
+ ----
 {{{
   vm.setStyle(style) 
 }}}
