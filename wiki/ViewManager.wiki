@@ -1,4 +1,3 @@
-
  == vm - View Manager ==
 
 {{{
@@ -45,3 +44,6 @@ The above example would find these files respectively.
  ----
 
 See [View] for details on both the simple and the extended layout and how the view document is used.
+
+ ----
+ back to [Globals]
