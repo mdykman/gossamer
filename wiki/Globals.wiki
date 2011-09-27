@@ -5,19 +5,18 @@ These variables are visible to controllers in all scripting engines.
  *	session - the user session
  *	uploads - the upload manager
  *	site    - interface to user.properties
+ *	installBase - a string showing the installation base for this 
  *	requestInfo - simplified interface to information about the 
- *	reqp    - the pathinfo, minus the leading slash (deprecated; use requestInfo)     
- *	rp      - the request processor; used to invoke external 
- *	id      - the runtime identifier; (usage is fuzzy ATM)
+ *	reqp    - the pathinfo, minus the leading slash (deprecated; use requestInfo.pathInfo which includes the leading slash)     
+ *	rp      - the request processor; used to invoke sibling controllers
  *	jdbc    - the JDBC connection manager
  *	hsf     - Hibernate session factory manager
  *	writer  - used to emit raw responses
- *	installBase - a string showing the installation base for this instance of gossamer 
-current HTTP request
-requestInfo.pathInfo which includes the leading slash)
+instance of gossamer 
  *	factory - a proxy for the spring bean factory
  *	request - the HttpServletRequest object
  *	response - the HttpServletResponse object
+ *	id      - the runtime identifier; (reserved for future use)
 controllers
 
  == session - User Session ==
