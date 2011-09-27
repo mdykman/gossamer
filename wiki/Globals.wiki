@@ -13,7 +13,7 @@ These variables are visible to controllers in all scripting engines.
  *	hsf     - Hibernate session factory manager
  *	writer  - used to emit raw responses
  *	factory - a proxy for the spring bean factory
- *	request - the HttpServletRequest object
- *	response - the HttpServletResponse object
+ *	request - the `HttpServletRequest` object
+ *	response - the `HttpServletResponse` object
  *	id      - the runtime identifier; (reserved for future use)
 controllers
