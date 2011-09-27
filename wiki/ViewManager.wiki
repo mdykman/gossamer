@@ -1,5 +1,8 @@
  == vm - View Manager ==
 
+See [View] for details on both the simple and the extended layout and how the view document is used.
+ ----
+
 {{{
   vm.setView(view)
 }}}
@@ -43,7 +46,4 @@ The above example would find these files respectively.
   Direct the client to follow a 302 redirect.  This method causes an immediate redirect and does not return.
  ----
 
-See [View] for details on both the simple and the extended layout and how the view document is used.
-
- ----
  back to [Globals]
