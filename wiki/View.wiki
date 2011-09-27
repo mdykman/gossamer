@@ -65,6 +65,8 @@ There are 2 ways of deploying view templates:
  * Simple Layout which accomodates most applications
  * Extended Layout, which lends multi-device support and white-labelling.
 
+No configuration is needed to switch between layouts.  For any given template, first the view manager attempts to find it according to the rules of the extended layout.  If no template is found, then the simple layout is searched.  A single application  may use templates at both levels.   
+
  === Simple Layout ===
 
 Under the simple layout, place XML/HTML format files directly under $GOSSAMER_HOME/xsl. An application specifying
@@ -76,8 +78,38 @@ Very sophisticated apps can be build using the simple layout alone.
 
 The extended layout is used when we wish to either
  * differentiate between clients, provide distinct templates to different devices
- * provide a distinct set of templates for alternate look and feel
+ * provide a distinct set of templates for alternate look and feel.
 
+Using the extended layout, templates are still placed under $GOSSAMER_HOME/xsl but with an additional directory structure.  The first additonal directory level selects for _style_, the second for _format_. This is the path to the template used for gossamer's default welcome page:
+{{{
+ xsl/default/xhtml-1.0/welcome.html
+}}}
+
+The first 2 levels under the `xsl/` directory have special meaning.
+ `default` refers to the effective style which is always initially set to `default`, but may be set explicitly using the view manager.  When set, it remains sticky through the lifetime of the session.
+
+ `xhtml-1.0` refers to the `format` attribute of the requesting device. By default, it is set to the `preferred_format` of the requesting device  (see [Device] for further information about device identification) but may be set explicitly using the view manager. When set, it applies to the current request only.
+
+ ==== Fallback Resolution ====
+When a view is set by the controller, ie. `vm.setView('welcome.html')`, the view manager considers the user's style and the requested format.  If no format has been explicitly set by the controller, the device's `preferred_format` attribute is consulted, which is typically, `xhtml-1.0`.  So we search for the template at the path:
+{{{
+ xsl/default/xhtml-1.0/welcome.html
+}}}
+ and we have found a match.
+
+ 
+Consider the following directory structure:
+
+{{{
+  xsl/
+    default/
+      xhtml-1.0/
+
+    special/
+      xhtml-1.0/
+}}}
+
+Her we are presented
  == XSL Generation ==
 
  === Automatic XSL ===
