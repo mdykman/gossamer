@@ -1,4 +1,4 @@
- = Global Variable =
+ = Global Variables =
 
 These variables are visible to controllers in all scripting engines.
  *	vm      - the view manager
