@@ -1,7 +1,7 @@
  = Global Variables =
 
 These variables are visible to controllers in all scripting engines.
- *      (RequestArgs args] - the request parameters
+ *      [RequestArgs args] - the request parameters
  *	[ViewManager vm] - the view manager
  *	[Session session] - the user session
  *	[Uploads uploads] - the upload manager
