@@ -102,14 +102,13 @@ When a view is set by the controller, ie. `vm.setView('welcome.html')`, the view
 
 If we had specified a _style_ thus: `vm.setStyle('special')`, we first would have searched 
 {{{ xsl/special/xhtml-1.0/welcome.html }}}
-
 which would find no template.  The template manager would then check to see if the style 'special' has a fallback defined.  In the gossamer distribution, as shipped, 'special' has the assigned fallback 'default', so the next path to be searched is
 {{{ 
-xsl/default/xhtml-1.0/welcome.html 
+ xsl/default/xhtml-1.0/welcome.html 
 }}}
 where the template is found.  The timestamp from this template is used in generating the xsl filename to be bound, but the xsl name generated will be bound to the originally targeted folder.
 {{{ 
-xsl/special/xhtml-1.0/welcome.html$<hash>.xsl 
+ xsl/special/xhtml-1.0/welcome.html$<hash>.xsl 
 }}}
 
 The [Dexter Dexter Servlet] uses the same fallback mechanics to locate the source and generate the requested xsl file.
@@ -121,14 +120,15 @@ When, in addition to setting a view, a _format_ is explicitly set by the control
 }}}
  the view manager will find the template at.
 {{{
-xsl/default/rss2.0/rss.xml 
+ xsl/default/rss2.0/rss.xml 
 }}}
 
 Additionally, upon rendering, Gossamer  will consult the [Device] object to set the appropriate mime-type faor this content and client via
 {{{
-device.getAttribute('rss2.0_mime_type')
+ device.getAttribute('rss2.0_mime_type')
 }}}
   which defaults to `application/xml+rss`.
+
 
  == XSL Generation ==
 
