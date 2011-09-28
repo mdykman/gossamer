@@ -1,12 +1,19 @@
+ == Introduction ==
+
+ The job of a controller does not have to be a dirty job.  
+
+ Continue to [View The View]
+
+ == Controller Environment ==
 Here, we will describe the environment shared by all controllers, regardless of the scripting language.
 
- == Scripts ==
+ === Scripts ===
 
 Gossamer controller Scripts may be written in a variety of languages.  We leverage the JSR223 Script Engine Interface to create an interface which allows many languages to plug to the environment with only the slightest of configuration.
 
-See [ScriptEngines Script Engines] for notes on each of the currently integrated langauges as well as notes on extending Gossamer with new languages.
+See [ScriptEngines Script Engines] for integration notes as well as notes on extending Gossamer with new languages.
 
- == Supported Languages ==
+ === Supported Languages ===
 
  * groovy
  * javascript
@@ -17,7 +24,7 @@ See [ScriptEngines Script Engines] for notes on each of the currently integrated
  * scheme
  * sleep
 
- == Result Values ==
+ === Result Values ===
 
 In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
 
@@ -33,7 +40,7 @@ Objects of other types many cause eccentric behaviour
 
 A facility for plugging in special handlers for specific objects is under development.
 
- == Global Variables ==
+ === Global Variables ===
 
 The [Globals global variables] are only visible to controller.  References to them, or objects they produce may be passed into library routines.
 
@@ -46,14 +53,15 @@ Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml
 
 Some of the most important of these [Globals Global Variables] are listed below.
 
- === [RequestArgs args] ===
- === [ViewManager vm] ===
- === [Session session] ===
- === [RequestInfo requestInfo] ===
- === [JDBC jdcb] ===
- === [HSF hsf] ===
+ * [RequestArgs args]
+ * [ViewManager vm]
+ * [Session session]
+ * [RequestInfo requestInfo]
+ * [JDBC jdcb]
+ * [HSF hsf] 
 
- == Direct Output ==
+
+ === Direct Output ===
 
 For those odd occasions when Gossamer's model of object-to-formatted output does not meet the task at hand, your controller may instead choose to generate response data directly.
 
@@ -63,20 +71,20 @@ The writer is also used to set the content type of the direct response.
 
 It should be noted that controllers so written will not respond to the view modes.  The output will be exactly as it has been coded to be.
 
- === Emitting a Text Response Directly ===
+ ==== Emitting a Text Response Directly ====
 {{{
 in groovy:
-  writer.setMimeType('text/plain')
-  println """
-This is a simple
-block of text
+writer.setMimeType('text/plain')
+println """
+  This is a simple
+  block of text
 """
-//return null to signal to gossamer no further processing is required.
+//return null to signal that no further processing is required.
 return null
 
 }}}
 
- === Emitting a Binary Directly ===
+ ==== Emitting a Binary Response Directly ====
 {{{
 in groovy:
 writer.setMimeType('image/png');
@@ -91,8 +99,7 @@ digraph g {
 }
 """;
 // dump process stdout to web output stream 
-def out = writer.getOutputStream();
-out << proc.getInputStream();
+writer.getOutputStream() << proc.getInputStream();
 
 return null
 }}}
