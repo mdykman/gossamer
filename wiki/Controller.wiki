@@ -32,7 +32,7 @@ See [ScriptEngines Script Engines] for integration notes as well as notes on ext
 
  === Result Values ===
 
-In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
+In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive  nested to arbitrary depth.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
 
 The serializer that renders these objects into json or XML, has very simple rules.  It expect these types, nested at any level:
  * Lists
