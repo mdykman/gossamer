@@ -27,11 +27,22 @@ See [ScriptEngines Script Engines] for integration notes as well as notes on ext
  * javascript
  * ruby(jruby)
  * python(python)
+ * AscpectJ
+ * scala
  * tcl
  * PHP
+ * clojure
  * scheme
  * sleep
+ * jelly
+ * judo
+ * bean shell
+ * awk
+ * Pnut
+ * Judo
 
+As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions]). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
+  
  === Result Values ===
 
 In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive  nested to arbitrary depth.  How the data is rendered to the client by the [View] is entirely dependent on how the script was invoked.  
