@@ -1,0 +1,30 @@
+<wiki:toc max_depth="3" />
+
+ == Extensions ==
+
+There is a file name `.extensions` in the `scripts/controllers` directory which instructs Gossamer what scripting languages to seek in response to a web request.  
+
+For example, if a request uri `/xml/myscript` was being processed, we would search `scripts/controllers`; first for a file named `myscript.groovy`, next `myscript.py`, and so on. The first file found is assumed to be a script of the corresponding type which is then [#Execution executed].
+
+In this case, once we exhaust the list, if no file is found, an error is returned. 
+
+The is the default `.extensions` file in the Gossamer distribution
+{{{
+groovy
+py
+rb
+jy
+js  
+jsl
+php
+bsh  
+pnut
+scm
+sl
+st
+tcl
+}}}
+
+This extensions file applies to all the sub-directories of `scripts/controllers` as well unless they contain their own `.extensions` file to control the script loading order or to limit for specific languages.
+
+ == Execution ==
