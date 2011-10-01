@@ -1,3 +1,5 @@
+<wiki:toc max_depth="3" />
+
  == Introduction ==
 
 The job of a controller should be a straightforward one; it mediates a clients application request to an application's [Model model] and pass the resulting data to the [View view].  
