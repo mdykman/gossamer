@@ -1,7 +1,11 @@
+= Introduction ==
+
+Data comprises the very soul of an application.  The forms of the data, how it is stored and how it is accessed and updated should be the decision of the application design, not the dictate of the framework we use to interface with it.
+
 When it comes to the model, Gossamer offers no prescribed paradigm, only choices.
 
  == JDBC ==
-Gossamer provides a JDBC Manager built-in.  It is implemented as a [Globals global varible] and can be configured in `applicationContext-user.xml` which resides in `$GOSSAMER_HOME/webapp/WEB-INF`.  Examples for specifying custom data sources are provided.  JDCB credentials are usually specified in jdbc.properties in the same directory.
+Gossamer provides a built-in JDBC Manager. It is implemented as a [Globals global varible] and can be configured in `applicationContext-user.xml` which resides in `$GOSSAMER_HOME/webapp/WEB-INF`.  Examples for specifying custom data sources are provided.  JDCB credentials are usually specified in jdbc.properties in the same directory.
  
 One of the provided examples is a template for a c3p0 connection pool which can support any vendor's jdbc-compliant driver.
 
