@@ -22,7 +22,7 @@ In Gossamer's default configuration, there are 4 uri prefixes which signal scrip
 /json/foo/bar  ->  $GOSSAMER_HOME/script/controllers/foo/bar.${ext}
 }}}
  
-See [Scripting#Extensions] extensions for details on extension resolution.
+See [Scripting#Extensions extensions] for details on extension resolution.
 
  === Scripts ===
 We leverage the JSR223 Script Engine Interface to create an interface which allows many languages to plug to the environment with only the slightest of configuration.
@@ -50,7 +50,7 @@ See [ScriptEngines Script Engines] for integration notes as well as notes on ext
  * Pnut
  * Judo
 
-As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions] extensions). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
+As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions extensions]). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
   
  === Result Values ===
 
