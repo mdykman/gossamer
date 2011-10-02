@@ -14,11 +14,20 @@ A typical Gossamer controller responds to client requests by gathering data from
 
  == Controller Environment ==
 Here, we will describe the environment shared by all controllers, regardless of the scripting language.
+ === Paths ===
+In Gossamer's default configuration, there are 4 uri prefixes which signal script execution: json, xml, rq, and render.  These prefixes are hints for the [View] and may generally be ignored while writing our controller.  All 4 paths invoke scripts under `scripts/controllers`
+{{{
+
+/xml/myscript  ->  $GOSSAMER_HOME/script/controllers/myscript.${ext}
+/json/foo/bar  ->  $GOSSAMER_HOME/script/controllers/foo/bar.${ext}
+}}}
+ 
+See [Scripting#Extensions] extensions for details on extension resolution.
 
  === Scripts ===
-
 We leverage the JSR223 Script Engine Interface to create an interface which allows many languages to plug to the environment with only the slightest of configuration.
 
+See [Scripting] for more information on how to script in the Gossamer framework.
 See [ScriptEngines Script Engines] for integration notes as well as notes on extending Gossamer with new languages.
 
  === Supported Languages ===
@@ -41,7 +50,7 @@ See [ScriptEngines Script Engines] for integration notes as well as notes on ext
  * Pnut
  * Judo
 
-As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions]). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
+As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions] extensions). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
   
  === Result Values ===
 
