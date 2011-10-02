@@ -23,11 +23,15 @@ In Gossamer's default configuration, there are 4 uri prefixes which signal scrip
 }}}
 In the latter example, if a script had been found at 
 {{{
-$GOSSAMER_HOME/scripts/controllers/foo.${ext}
+$GOSSAMER_HOME/scripts/controllers/foo.<ext>
 }}}
 Gossamer would set the path info to `'/bar'` and executed `foo.<ext>`.
  
-If we had a script at `$GOSSAMER_HOME/scripts/controllers/foo/bar.<ext>` and the following uri was invoked, `/rq/foo/bar/apples`, the handler would locate the scrip named bar (regardless of which scripting extension) and set '/apples' as the path info.  See [RequestInfo requestInfo] for more information on using the path info from within a script.
+If we had a script at 
+{{{
+`$GOSSAMER_HOME/scripts/controllers/module/script.<ext>`
+}}}
+and the following uri was invoked, `/rq/module/script/apples`, the handler would locate the script named bar (regardless of which scripting extension) and set '/apples' as the path info.  See [RequestInfo requestInfo] for more information on using the path info from within a script.
 
 See [Scripting#Extensions extensions] for details on extension resolution.
 
