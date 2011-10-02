@@ -2,7 +2,7 @@
 
  == Introduction ==
 
-The job of a controller should be a straightforward one; it mediates a clients application request to an application's [Model model] and pass the resulting data to the [View view].  
+The job of a controller should be a straightforward one; it mediates a clients application request to an application's [Model model] and passes the resulting data to the [View view].  
 
 Most often, when a web developer wants to implement something in a different language, they are obliged to change platforms in order to accommodate that language.  This often means having to change our approach to the model and the view mechanics, not to mention the slew of configuration hassles.
 
