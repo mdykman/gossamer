@@ -8,7 +8,7 @@ Most often, when a web developer wants to implement something in a different lan
 
 Gossamer controller scripts may be written in a variety of [#Supported_Languages languages].  A controller written in one language may even invoke the controller of another and interact with the resulting data.
 
-A typical Gossamer controller responds to client requests by gathering data from the application model into a [#Result_Values digestible structure] and returning it.  The controller may or may not select a [View view], in this case meaning: an example output document marked up with additional attributes to integrate the data.  (See [Dexter]). Precisely how the data is rendered back to the client depends on how the client requested it.
+A typical Gossamer controller responds to client requests by gathering data from the application model into a [#Result_Values digestible structure] and returning it.  The controller may or may not select a [View view], in this case meaning: an sample output document marked up with additional attributes to format the data by example.  (See [Dexter]). Precisely how the data is rendered back to the client depends on how the client requested it.
 
  Continue to [View The View]
 
