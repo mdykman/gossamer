@@ -18,17 +18,13 @@ Here, we will describe the environment shared by all controllers, regardless of 
 In Gossamer's default configuration, there are 4 uri prefixes which signal script execution: json, xml, rq, and render.  These prefixes are hints for the [View] and may generally be ignored while writing our controller.  All 4 paths invoke scripts under `scripts/controllers`
 {{{
 
-/xml/myscript  ->  $GOSSAMER_HOME/script/controllers/myscript.${ext}
-/json/foo/bar  ->  $GOSSAMER_HOME/script/controllers/foo/bar.${ext}
+/xml/myscript  ->  $GOSSAMER_HOME/scripts/controllers/myscript.${ext}
+/json/foo/bar  ->  $GOSSAMER_HOME/scripts/controllers/foo/bar.${ext}
 }}}
- 
+
+If we had a script at `$GOSSAMER_HOME/scripts/controllers/foo/bar.${ext}` and the following uri was invoked, `/rq/foo/bar/apples`, the handler would locate the scrip named bar (regardless of which scripting extension) and set '/apples' as the path info.  See [RequestInfo requestInfo] for more information on using the path info.
+
 See [Scripting#Extensions extensions] for details on extension resolution.
-
- === Scripts ===
-We leverage the JSR223 Script Engine Interface to create an interface which allows many languages to plug to the environment with only the slightest of configuration.
-
-See [Scripting] for more information on how to script in the Gossamer framework.
-See [ScriptEngines Script Engines] for integration notes as well as notes on extending Gossamer with new languages.
 
  === Supported Languages ===
 
@@ -70,7 +66,7 @@ A facility for plugging in special handlers for specific objects is under develo
 
  === Global Variables ===
 
-The [Globals global variables] are only visible to controller.  References to them, or objects they produce may be passed into library routines.
+The [Globals global variables] are only visible to controllers.  References to them, or objects they produce may be passed into library routines.
 
 {{{
 ruby:
