@@ -1,0 +1,16 @@
+When it comes to the model, Gossamer offers no prescribed paradigm, only choices.
+
+ == JDBC ==
+Gossamer provides a JDBC Manager built-in.  It is implemented as a [Globals global varible] and can be configured in `applicationContext-user.xml` which resides in `$GOSSAMER_HOME/webapp/WEB-INF`.  Examples for specifying custom data sources are provided.  JDCB credentials are usually specified in jdbc.properties in the same directory.
+ 
+One of the provided examples is a template for a c3p0 connection pool which can support any vendor's jdbc-compliant driver.
+
+Another provided example shows how to implement a sqllite `DataSource`.  Gossamer uses sqllite internally in the device identification stack and the template fallback chains.
+
+The manager guarantees an isolated connection per request and that connections and outstanding statements are closed (or released to the pool) at the end of every request cycle. There is no need for the programmer/user to close a connection; if fact, it should be avoided as, in an application environment, other scripts may require the use of that same connection.
+ 
+ == Hibernate ==
+
+ == Language-Specific Interfaces ==
+
+ == Whatever You Want ==
