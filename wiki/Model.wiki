@@ -41,6 +41,6 @@ sql.execute(...
 }}}
 Ruby and others privde something analagous.  If you are happy with those interfaces and remaining within those languages and they suit the scope of the application at hand, then any of these are excellent choices.
  == Whatever You Want ==
-As most JVM-implemented scripting languages have some facility to manipulate Java objects, any interface implemented in Java is available for you to use.  You may decide to include NoSQL clients, a BDB store, or something entirely else. For tighter integration, you might make your interface available as a bean in `applicationContext-users.xml` (see [Globals#Factory]) or even publish it as a global variable.
+As most JVM-implemented scripting languages have some facility to manipulate Java objects, any interface implemented in Java is available for you to use.  You may decide to include NoSQL clients, a BDB store, or something entirely else. For tighter integration, you might make your interface available as a bean in `applicationContext-users.xml` (see [Globals#Factory factory]) or even publish it as a global variable.
 
 If you come up with something interesting, let us know; we would be happy to share it.
