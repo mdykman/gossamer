@@ -40,7 +40,7 @@ See [Scripting#Extensions extensions] for details on extension resolution.
  * groovy (1.8.0)
  * javascript (rhino1_7R3)
  * jruby 1.6.4 (ruby-1.9.2-p136)
- * python(ypython 2.5.2)
+ * python(jython 2.5.2)
  * AscpectJ
  * scala
  * tcl
