@@ -37,22 +37,22 @@ See [Scripting#Extensions extensions] for details on extension resolution.
 
  === Supported Languages ===
 
- * groovy
- * javascript
- * ruby(jruby)
- * python(python)
+ * groovy (1.8.0)
+ * javascript (rhino1_7R3)
+ * jruby 1.6.4 (ruby-1.9.2-p136)
+ * python(ypython 2.5.2)
  * AscpectJ
  * scala
  * tcl
  * PHP
- * clojure
+ * clojure (1.3.0)
  * scheme
  * sleep
  * jelly
  * judo
  * bean shell
  * awk
- * Pnut
+ * pnuts
  * Judo
 
 As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [Scripting#Extensions extensions]). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .  
