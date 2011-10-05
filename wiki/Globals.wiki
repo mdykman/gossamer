@@ -17,4 +17,3 @@ These variables are visible to controllers in all scripting engines.
  *	request - the `HttpServletRequest` object
  *	response - the `HttpServletResponse` object
  *	id      - the runtime identifier; (reserved for future use)
-controllers
