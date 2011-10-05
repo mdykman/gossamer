@@ -10,7 +10,6 @@ Gossamer controller scripts may be written in a variety of [#Supported_Languages
 
 A typical Gossamer controller responds to client requests by gathering data from the application model into a [#Result_Values digestible structure] and returning it.  The controller may or may not select a [View view], in this case meaning: an sample output document marked up with additional attributes to format the data by example.  (See [Dexter]). Precisely how the data is rendered back to the client depends on how the client requested it.
 
- Continue to [View The View]
+ For more reference information on implementing controllers, see [Scripting]
 
- == Controller Environment ==
-Here, we will describe the environment shared by all controllers, regardless of the scripting language.
+ Continue to [View The View]
