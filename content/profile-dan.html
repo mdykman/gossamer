@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd">
+	<head>
+		<title>Profile Page</title>
+		<link rel="stylesheet" type="text/css" href="CSS/new.css"/>
+		<script type="text/javascript" src="JS/jQuery-1.2.6.js"></script>
+		<script type="text/javascript" src="JS/jQuery.corner.js"></script>
+		<script type="text/javascript" src="JS/jquery.ui-1.5/ui/jquery.ui.all.js"></script>
+		<script type="text/javascript" >
+			
+			$(function() {
+				$("#container").corner("tl tr 10px");
+									 });
+			$(document).ready(function(){
+				$("#bookmarks").hide();
+				$("#tools").hide();
+				
+				$("#bookmarks-button").click(function () {
+						//$("#tools").hide();
+        		$("#bookmarks").slideToggle("slow");
+	 																							 });
+				$(".itemClose").click(function () {
+						var targetContent = $('div.itemContent', this.parentNode.parentNode);
+        		targetContent.slideToggle("slow");
+	 																							 });
+    		$(".tool-button").click(function () {
+    			//alert("AHHHHHHHHHHHHHHHHHHHHH!");
+     		  $("#tools").toggle("slide", {}, "slow");
+     		  //alert("AHHHHHHHHHHHHHHHHHHHHH!2");
+    																				});				
+				$(".column").sortable({
+					connectWith: [".column"],
+					handle: 'div.handle',
+					placeholder: 'sortHelper',
+					helper:	'clone'						 
+															 });											       
+});							
+	
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="head" name="head"><h1>ALL U NEED IS</h1></div>
+			<div id="navigation" name="navigation">
+				<a href=""><div id="mail-link" name="mail-link" class="linkItem">mail</div></a>
+				<a href=""><div id="search-link" name="search-link" class="linkItem">search</div></a>
+				<a href=""><div id="profile-link" name="profile-link" class="linkItem">profile</div></a>
+				<a href=""><div id="account-link" name="account-link" class="linkItem">account</div></a>
+			</div>
+		<div id="bookmarks" name="bookmarks"></div>
+		<div id="main" name="main">
+			<div id="toolbar" name="toolbar">
+				<div id="bookmarks-button" name="bookmarks-button" class="toolbar-button">bookmarks|</div>
+				<div id="admin-button" name="admin-button" class="toolbar-button">administrate|</div>
+				<div id="normalView-button" name="normalView-button" class="toolbar-button">normal view|</div>	
+			</div>
+			<div id="pictureContainer" name="pictureContainer"></div>
+			<div id="pictureSelector" name="pictureSelector"></div>
+			<div id="column-1" name="column-1" class="column">
+				<div id="g1" name="g1" class="groupItem">
+					<div id="" class="itemHeader"><div class="handle"></div><div class="itemClose">[-]</div></div>
+					<div id="" class="itemContent">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+					</div>
+				</div>
+				<div id="g2" name="g2" class="groupItem">
+					<div id="" class="itemHeader"><div class="handle"></div><div class="itemClose">[-]</div></div>
+					<div id="" class="itemContent">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+					</div>
+				</div>
+			</div>
+			<div id="column-2" name="column-2" class="column">
+				<div id="g5" name="g5" class="groupItem">
+					<div id="" class="itemHeader"><div class="handle"></div><div class="itemClose">[-]</div></div>
+					<div id="" class="itemContent">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+					</div>
+				</div>
+				<div id="g6" name="g6" class="groupItem">
+					<div id="" class="itemHeader"><div class="handle"></div><div class="itemClose">[-]</div></div>
+					<div id="" class="itemContent">
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+						<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tool-button" name="tool-button"> &gt; </div>
+		</div>
+		<div id="tools" name="tools"></div>
+	</body>
+</html>

@@ -1,0 +1,16 @@
+
+
+# these rules guarantee that the interactive request mapping editor cannot override core mappings
+# these are use use cases which must succeed for the request mapper to be able to dynamicaly update paths
+
+# guarantee that the script console remains accessable
+/scon                      /rq/scon/scon
+/rq/scon/scon              /rq/scon/scon
+/rq/scon/filelist          /rq/scon/filelist
+/js/scon/scon.js           /js/scon/scon.js
+/css/scon/scon.css           /css/scon/scon.css
+/js/jquery-contextmenu/jquery.contextMenu.js  /js/jquery-contextmenu/jquery.contextMenu.js  
+
+
+# add your application-specific tests here
+

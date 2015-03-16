@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html >
+<head>
+</head>
+<body>
+<script type="text/javascript">
+</script>
+<div>
+<span dx:text="result/type" style="font-style: italic;">type</span> files
+</div>
+
+<div dx:each="result/files/Item">
+[<a href="javascript:void(0);" dx:attr="onclick:deleteScript('{.}');" >x</a>]
+<a href="javascript:void(0);" dx:attr="onclick:loadScript('{.}');" dx:text="." >file 1</a>
+</div>
+<div dx:ignore=""><a href="" >file 2</a></div>
+<div dx:ignore=""><a href="" >file 3</a></div>
+</body>
+</html>

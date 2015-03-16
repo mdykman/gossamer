@@ -1,0 +1,246 @@
+#!/bin/sh
+#
+# jetty	This shell script takes care of starting and stopping
+#		the Jetty Servlet Engine
+#
+# chkconfig: - 85 15
+# description:	Jetty Servlet Engine
+# processname: jetty
+# config: /etc/jetty.xml
+###
+###
+###
+###
+
+# pidfile: /var/run/jetty/jetty.pid
+
+
+umask 0022
+
+#--------------------------------------------------------------
+#
+# Sample init.d stop/start script for jetty services on Linux.
+#
+#--------------------------------------------------------------
+# chkconfig: 2345 20 80
+# description: Runs Jetty HTTP Server 
+#
+#JAVA_OPTS
+#
+#This variable can be used to pass args to the jvm
+#
+
+. /etc/rc.d/init.d/functions
+
+# uncomment to use the remote debugger
+# JAVA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8001"
+
+DEFAULT_JETTY_USER=jetty
+JAVA_OPTS="-Xmx2048m"
+
+#
+# DIRNAME, SCRIPTNAME 
+#
+DIRNAME=`dirname $0`
+SCRIPTNAME=`basename $0`
+
+#
+# JAVA_HOME
+#
+
+####JAVA_HOME####
+
+# find the JDK to define as JAVA_HOME
+JAVAC=`which javac`
+
+P=`readlink -f $JAVAC`
+P=`dirname $P`
+JAVA_HOME=`dirname $P`
+
+
+echo $JAVA_HOME
+if [ -z "$JAVA_HOME" ]; then
+  JAVA_HOME=/usr/java/open-jdk
+  export JAVA_HOME
+#  echo "JAVA_HOME not set, using default ${JAVA_HOME}" 
+fi
+
+
+#
+#JAVA_CMD
+#
+JAVA_CMD="${JAVA_HOME}/bin/java" 
+
+#
+# JETTY_HOME
+#
+
+if [ -z "$JETTY_USER" ]; then
+	JETTY_HOME=/usr/local/jetty
+else
+	JETTY_HOME=/home/${JETTY_USER}/jetty
+fi;
+JETTY_HOME=/usr/local/jetty
+
+#echo JETTY_HOME defined as $JETTY_HOME
+cd $JETTY_HOME
+
+#
+# The user name jetty should run under. THis should be able to write to the log dir
+#
+if [ -z "$JETTY_USER" ]; then
+	JETTY_USER=$DEFAULT_JETTY_USER
+fi;
+
+#echo running as $JETTY_USER
+
+#
+# JETTY_XML_FILE
+#
+
+if [ -z "$JETTY_XML_FILE" ]; then
+  if [ "$JETTY_USER" = "$DEFAULT_JETTY_USER" ]; then
+	  JETTY_XML_FILE="${JETTY_HOME}/etc/jetty.xml ${JETTY_USER}/etc/jetty-ssl.xml"
+  else
+		JETTY_XML_FILE="/home/${JETTY_USER}/jetty/etc/jetty.xml"
+  fi
+#  echo "JETTY_XML_FILE not set, using default xml config file: ${JETTY_XML_FILE}"
+fi
+
+#echo using $JETTY_XML_FILE
+#
+# LOG_DIR
+#
+
+if [ -z "$JETTY_LOG_DIR" ]; then
+  JETTY_LOG_DIR=/var/log/jetty
+#  echo "JETTY_LOG_DIR not set, using default ${JETTY_LOG_DIR}"
+fi
+
+
+#echo logging to $JETTY_LOG_DIR
+
+if [ -z "$RUNUSER" ]; then
+	RUNUSER="runuser $JETTY_USER "
+else
+	RUNUSER="sh "
+fi
+
+#echo runuser defined as $RUNUSER
+
+test -f "${JAVA_CMD}" || exit 0
+test -d "${JETTY_HOME}" || exit 0
+
+rotate_logs()
+{
+  if test -f ${JETTY_LOG_DIR}/jetty.log.04
+  then
+    rm ${JETTY_LOG_DIR}/jetty.log.04
+  fi
+  if test -f ${JETTY_LOG_DIR}/jetty.log.03
+  then
+    mv ${JETTY_LOG_DIR}/jetty.log.03 ${JETTY_LOG_DIR}/jetty.log.04
+  fi
+  if test -f ${JETTY_LOG_DIR}/jetty.log.02
+  then
+    mv ${JETTY_LOG_DIR}/jetty.log.02 ${JETTY_LOG_DIR}/jetty.log.03
+  fi
+  if test -f ${JETTY_LOG_DIR}/jetty.log.01
+  then
+    mv ${JETTY_LOG_DIR}/jetty.log.01 ${JETTY_LOG_DIR}/jetty.log.02
+  fi
+  if test -f ${JETTY_LOG_DIR}/jetty.log
+  then
+    mv ${JETTY_LOG_DIR}/jetty.log ${JETTY_LOG_DIR}/jetty.log.01
+  fi
+}
+
+kill_jetty()
+{
+  # Guarantee jetty exits
+  jetty_pid=""
+   for p in `ps -fC java | awk -v user=$JETTY_USER 'user == $1 { print $2}' `
+  do
+    jetty_pid="$jetty_pid $p"
+  done
+
+  if test -n "$jetty_pid"
+  then
+    # Grace
+    sleep 5
+    kill -4 $jetty_pid >/dev/null 2>&1
+    sleep 3
+    kill -9 $jetty_pid >/dev/null 2>&1
+  fi
+}
+
+startJetty()
+{
+	echo -n "Starting Jetty Server: "
+
+     	rotate_logs
+
+   $RUNUSER -c "$JAVA_CMD $JAVA_OPTS -Djetty.home=${JETTY_HOME} -jar ${JETTY_HOME}/start.jar > ${JETTY_LOG_DIR}/jetty.log 2>&1  &
+
+
+	success
+	echo
+}
+
+stopJetty()
+{
+	echo -n "Stopping Jetty Server: "
+	sudo -u $JETTY_USER $JAVA_CMD $JAVA_OPTS -Djetty.home=${JETTY_HOME} -jar ${JETTY_HOME}/stop.jar ${JETTY_XML_FILE} > ${JETTY_LOG_DIR}/jetty_bootstop 2>&1
+
+## this is obvious overkill in this environment
+	kill_jetty
+	success
+	echo
+}
+
+
+# Set umask for public read of created files
+umask 0022
+
+# set the TZ for java logging
+# some java/unix combos don't understand Daylight Savings Time
+if test -z "${TZ}"
+then
+  if test -f /etc/timezone
+  then
+    TZ="`cat /etc/timezone`"
+    export TZ
+  elif test -L /etc/localtime
+  then
+    # Symlink (RedHat style)
+    TZ="`ls -l /etc/localtime | sed -e 's%..*/usr/share/zoneinfo/%%g'`"
+    export TZ
+  elif test -f /etc/localtime
+  then
+    # Maybe it's a hardlink (SuSE Linux style)
+    tz_inode=`ls -i /etc/localtime | cut -f1 -d"/"`
+    TZ="`find /usr/share/zoneinfo -inum $tz_inode -print | sed -n 1p | sed -e 's%/usr/share/zoneinfo/%%g'`"
+    export TZ
+  fi
+fi
+
+case "$1" in
+start)
+	startJetty
+	;;
+stop)
+	stopJetty
+	;;
+restart|force-reload)
+	stopJetty
+	startJetty
+	;;
+*)  echo "Usage: /etc/init.d/${SCRIPTNAME} {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
+
+
+

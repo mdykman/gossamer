@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.dykman.gossamer.session.SessionBean" table="gsession">
+		<composite-id name="identifier"  
+			class="org.dykman.gossamer.session.SessionBeanKey">
+			<key-property name="gsid"/>
+			<key-property name="name"/>
+		</composite-id>
+        <property name="data"/>
+    </class>
+</hibernate-mapping>

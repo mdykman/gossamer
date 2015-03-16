@@ -1,0 +1,195 @@
+<html>
+<head>
+<style>
+.ghost {
+  visibility: hidden;
+  z-index: -4;
+}
+.shown {
+  visibility: visible;
+  z-index: 0;
+}
+
+</style>
+<script src="js/gossamer-image-path.js" language="JavaScript" type="text/javascript">
+</script>
+</head>
+<body>
+<div id="workarea" style="padding: 3px;">
+</div>
+
+<iframe id="hidden-frame" name="iframe-name" style="visibility: hidden; z-index: -2;">
+results go here
+</iframe>
+
+<script language="JavaScript" type="text/javascript">
+
+var container="workarea";
+
+var curForm = null;
+function iframeInit(id) {
+	var fr = document.getElementById(id);
+	fr.onload = function() { iframeLoad(fr); }
+}
+
+
+function initUploadForm(id,action) {
+	iframeInit("hidden-frame");
+
+	var el = document.getElementById(id);
+	createUploadComponent(el,action);
+}
+
+var randstub = 2100;
+function getRandId() {
+	return 'gossamer-auto-form-' + ++randstub;
+}
+
+function submitfile(ff)
+{
+//	var ff = fin.parentNode;
+// hide the form
+	ff.setAttribute("class","ghost");
+// create a new upload form	
+	initUploadForm(container,'/rq/upload/upload');
+// submit the hidden form	
+	ff.submit();
+// make sure it doesn't submit again	
+	return false;
+}
+
+function createUploadForm(action) {
+	var fid = getRandId();
+	
+	var form = document.createElement("form");
+	form.setAttribute("id",fid);
+	form.setAttribute("method","post");
+	form.setAttribute("action",action);
+	form.setAttribute("target","iframe-name");
+	form.setAttribute("enctype","multipart/form-data");
+	form.setAttribute("class","shown");
+
+	var input = document.createElement("input");
+	input.setAttribute("type","file");
+	input.setAttribute("name","myfile");
+	input.setAttribute("onchange","return submitfile(this.parentNode);");
+	form.appendChild(input);
+
+	input = document.createElement("input");
+	input.setAttribute("type","hidden");
+	input.setAttribute("name","formid");
+	input.setAttribute("value",fid);
+	form.appendChild(input);
+
+	return form;
+}
+
+function createUploadComponent(el, action)
+{
+	var form = createUploadForm(action);
+	form.setAttribute("style","width:240px; position:relative; top:0px; left:0px; width:100%;"); 
+	
+	var gg  = document.createElement("div");
+	gg.setAttribute("style","position:relative; top:0px; left: 0px; width:100%;"); 
+	gg.setAttribute("class","ghost");
+	gg.setAttribute("id",form.getAttribute("id") + "-mask"); 
+
+	var cmp = document.createElement("div");
+	cmp.setAttribute("style","width:400px; clear:both;"); 
+	cmp.appendChild(form);
+	insertAsFirst(el,cmp);
+}
+
+function getTextFromElements(el)
+{
+   if(el) for(var i = 0 ; i < el.length; ++i)
+   {
+    	var cs = el[i].childNodes;
+    	var msg = '';
+    	for(var j = 0; j < cs.length; ++j)
+    	{
+    		msg = msg + cs[j].nodeValue;
+    	}
+ 	 	return msg;
+  	}
+	return null; 
+}
+
+function getTextContent(el,tagname) {
+  var ell = el.getElementsByTagName(tagname);
+    if(ell.length > 0)
+      return getTextFromElements(ell);
+     else
+     	return null;
+}
+
+function insertAsFirst(el,newch) {
+	if(el.hasChildNodes && el.childNodes.length > 0) {
+	  el.insertBefore(newch, el.firstChild);
+	}
+	else {
+		el.appendChild(newch);
+	}
+}
+
+
+
+var iframeLoad = function(iframe) {
+  var resultDoc = iframe.contentDocument;
+  if(resultDoc)
+  {
+    var ell = resultDoc.getElementsByTagName("fileInfo");
+      if(ell.length > 0) {
+        var fileInfo = ell[0];
+        var fid = getTextContent(fileInfo,"formid");
+	    var dd = document.getElementById(fid);
+	    
+	    if(dd) {
+			var gg  = document.createElement("div");
+			gg.setAttribute("style","position:relative; top:0px; left: 0px; width:100%;"); 
+			gg.setAttribute("class","shown");
+			gg.setAttribute("id",dd.getAttribute("id") + "-mask"); 
+	
+			var url = getTextContent(fileInfo,"relative");
+			var name = getTextContent(fileInfo,"name");
+			var size = getTextContent(fileInfo,"size");
+			var height = getTextContent(fileInfo,"height");
+			var width = getTextContent(fileInfo,"width");
+			var type = getTextContent(fileInfo,"mime");
+			
+			
+			var a = document.createElement("a");
+			a.setAttribute("href",url);
+			a.appendChild(document.createTextNode(name));
+
+			var ip = new ImagePath(url);
+			ip.addFunction('t',[80,80]);
+			var img = document.createElement("img");
+			img.setAttribute("src",ip.getPath());
+			img.setAttribute("style","float: left;");
+			
+			
+			gg.appendChild(img);
+		    gg.appendChild(document.createTextNode("file received as "));
+
+		    gg.appendChild(a);
+		    gg.appendChild(document.createElement("br"));
+		    gg.appendChild(document.createTextNode("type: " + type));
+		    gg.appendChild(document.createElement("br"));
+		    
+		    gg.appendChild(document.createTextNode("" + size + " bytes, " 
+		    	+ width + "x" + height));
+
+		    var p = dd.parentNode;
+	      	p.replaceChild(gg,dd);
+	    }
+    }
+  } 
+}
+
+initUploadForm(container,'/rq/groovy/res');
+
+</script>
+
+</body>
+</html>

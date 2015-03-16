@@ -1,0 +1,144 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+
+<html xmlns:dx="http://www.foo.com/dexteritiy-1.0.xsd">
+<head>
+<title>Tracy's Recreation of Awesome Drag and Drop</title>
+<link rel="stylesehet" href="cssx/default.css"/>
+<script type="text/javascript" src="jquery-1.2.6.js"></script>
+<script type="text/javascript" src="jquery.corner.js"></script>
+<script type="text/javascript" src="interface.js"></script>
+<style type="text/css" media="all">
+html {
+	height: 100%;
+}
+
+img {
+	border: none;
+}
+
+body {
+	background: #fff;
+	height: 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.groupWrapper {
+	width: 265px;
+	float: left;
+	margin-right: 1%;
+	min-height: 400px;
+}
+
+.serializer {
+	clear: both;
+}
+
+.groupItem {
+	margin-bottom: 20px;
+}
+
+.groupItem .itemHeader {
+	line-height: 28px;
+	color: #000;
+	padding: 0 10px;
+	cursor: move;
+	font-weight: bold;
+	font-size: 16px;
+	height: 28px;
+	position: relative;
+	background-image: url('background.gif')
+}
+
+.groupItem .itemHeader a {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	font-weight: normal;
+	font-size: 11px;
+	text-decoration: none;
+}
+
+.sortHelper {
+	border: 3px dashed #666;
+	width: auto !important;
+}
+
+.groupWrapper p {
+	height: 1px;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+</style>
+</head>
+<body>
+<div id="sort1" class="groupWrapper">
+<div class="groupItem" dx:each="*/users/User">
+<div class="itemHeader"><span dx:ghost=""  dx:value="username">
+	Tracy</span><a href="#" class="closeEl">[-]</a></div>
+<div class="itemContent">
+<ul>
+	<li>userid: <span dx:value="userid">23</span></li>
+	<li dx:value="first">John</li>
+	<li dx:value="last">Smith</li>
+</ul>
+</div>
+</div>
+
+<div dx:ignore="" id="" class="groupItem">
+<div class="itemHeader">Daniel<a href="#" class="closeEl">[-]</a></div>
+<div class="itemContent">
+<ul>
+	<li>orem ipsum dolor sit amet, consectetuer adipiscing elit</li>
+	<li>orem ipsum dolor sit amet, consectetuer adipiscing elit</li>
+</ul>
+</div>
+</div>
+
+</div>
+<script type="text/javascript">
+$(document).ready(
+
+	function () {
+		$('a.closeEl').bind('click', toggleContent);
+		$('div.groupWrapper').Sortable(
+			{
+				accept: 'groupItem',
+				helperclass: 'sortHelper',
+				activeclass : 	'sortableactive',
+				hoverclass : 	'sortablehover',
+				handle: 'div.itemHeader',
+				tolerance: 'pointer',
+				onChange : function(ser)
+				{
+				},
+				onStart : function()
+				{
+					$.iAutoscroller.start(this, document.getElementsByTagName('body'));
+				},
+				onStop : function()
+				{
+					$.iAutoscroller.stop();
+				}
+			}
+		);
+	}
+);
+var toggleContent = function(e)
+{
+	var targetContent = $('div.itemContent', this.parentNode.parentNode);
+	if (targetContent.css('display') == 'none') {
+		targetContent.slideDown(300);
+		$(this).html('[-]');
+	} else {
+		targetContent.slideUp(300);
+		$(this).html('[+]');
+	}
+	return false;
+};
+</script>
+</body>
+</html>

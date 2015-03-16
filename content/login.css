@@ -1,0 +1,151 @@
+.container{
+	position: relative;
+				  }
+				 
+#pageContainer{
+	margin-left: auto;
+	margin-right: auto;
+	height: 500px;
+	width: 800px;
+	top: 0px;
+	position: relative;
+				 		  }
+/* MAIN */
+						 
+#mainBox{
+	height: 300px;
+	width: 500px;
+	top: 0px;
+	left: 0px;
+	position: relative;
+	float: left;
+	background-color: #cf3d00;
+			  }
+			  
+#mainLogo{
+	top: 30px;
+	left: 30px;
+	position: relative;
+	color: #000000;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: sans-serif;
+			 }
+	
+#mainBlurb{
+	top: 50px;
+	left: 170px;
+	height: 200px;
+	width: 300px;
+	position: relative;
+	color: #000000;
+	font-size: 12px;
+	font-family: sans-serif;
+	border: 1px solid 
+					}
+
+/* REGISTER */
+			 
+#miniRegister{
+	height: 300px;
+	width: 295px;
+	top: 0px;
+	left: 2px;
+	position: relative;
+	float: left;
+	background-color: #333333;
+				 		 }
+				 		 
+.registerForm{
+	top: 20px;
+	left: 30px;
+	position: absolute;
+					}			 		 
+				 	
+/*STATISTICS*/				 		 
+						
+#statBox{
+	height: 100px;
+	width: 500px;
+	top: 2px;
+	left: 0px;
+	position: relative;
+	float: left;
+	background-color: #333333;
+			  }
+			 
+#statProfiles{
+	 					 }
+						
+/*LOGIN*/
+
+#loginBox{
+	height: 100px;
+	width: 295px;
+	top: 2px;
+	left: 2px;
+	position: relative;
+	float: left;
+	background-color: #cf3d00;
+				 }
+
+.loginElement{
+	width: 8em;
+	position: relative;
+						 }
+
+.loginButton{
+	position: relative;
+						 }
+
+.loginLabel{
+	float: left;
+	width: 50px;
+	color: #323232;
+	font-family: sans-serif;
+	font-size: 10px;
+					 }
+
+.loginForm{
+	top: 20px;
+	left: 50px;
+	position: relative;
+					}
+
+/*OTHER*/
+				
+#textLinks{
+	height: 25px;
+	width: 800px;
+	top: 10px;
+	left: 0px;
+	position: relative;
+	float: left;
+	text-align: center;
+		
+				  }	
+				  
+/*TEXT AND LINKS*/
+
+.textLink{
+	color: #000000;
+	text-decoration: none;
+	font-size: 10pt;
+	font-family: sans-serif;
+				 }
+				 
+/* FORMS */
+.formLabel{
+	float: left;
+	width: 100px;
+	color: #FFFFFF;
+	font-size: 10pt;
+	font-family: sans-serif;
+					}
+
+.formElement{
+	float: left;
+	width: 150px;
+						}
+
+	

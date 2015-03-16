@@ -1,0 +1,78 @@
+/* Generic context menu styles */
+.contextMenu {
+	position: absolute;
+	width: 120px;
+	z-index: 99999;
+	border: solid 1px #CCC;
+	background: #EEE;
+	padding: 0px;
+	margin: 0px;
+	display: none;
+}
+
+.contextMenu LI {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.contextMenu A {
+	color: #333;
+	text-decoration: none;
+	font-size: 8pt;
+	font: Helvitica, sans-serif;
+	font-weight: bold;
+	display: block;
+	line-height: 20px;
+	height: 20px;
+	background-position: 6px center;
+	background-repeat: no-repeat;
+	outline: none;
+	padding: 1px 5px;
+	padding-left: 28px;
+}
+
+.contextMenu LI.hover A {
+	color: #FFF;
+	background-color: #3399FF;
+}
+
+.contextMenu LI.disabled A {
+	color: #AAA;
+	cursor: default;
+}
+
+.contextMenu LI.hover.disabled A {
+	background-color: transparent;
+}
+
+.contextMenu LI.cmseparator {
+	border-top: solid 1px #CCC;
+}
+
+/*
+	Adding Icons
+	
+	You can add icons to the context menu by adding
+	classes to the respective LI element(s)
+*/
+
+.contextMenu LI.cmdnew A { background-image: url(images/folder_new.gif); }
+.contextMenu LI.cmdopen A { background-image: url(images/folder--arrow.png); }
+.contextMenu LI.cmfnew A { background-image: url(images/page_new.gif); }
+.contextMenu LI.cmfopen A { background-image: url(images/folder--arrow.png); }
+.contextMenu LI.cmrun A { background-image: url(images/page_dynamic.gif); }
+.contextMenu LI.cmdclose A { background-image: url(images/folder--minus.png); }
+.contextMenu LI.cmdelete A { background-image: url(images/action_stop.gif); }
+.contextMenu LI.cmdexter A { background-image: url(images/page_dynamic.gif); }
+.contextMenu LI.cmcancel A { background-image: url(images/page_deny.gif); }
+.contextMenu LI.cmfrename A { background-image: url(images/file_font.gif); }
+.contextMenu LI.cmdup A { background-image: url(images/page_copy.png); }
+/*
+.contextMenu LI.edit A { background-image: url(images/page_white_edit.png); }
+.contextMenu LI.cut A { background-image: url(images/cut.png); }
+.contextMenu LI.copy A { background-image: url(images/page_white_copy.png); }
+.contextMenu LI.paste A { background-image: url(images/page_white_paste.png); }
+.contextMenu LI.delete A { background-image: url(images/page_white_delete.png); }
+.contextMenu LI.quit A { background-image: url(images/door.png); }
+*/

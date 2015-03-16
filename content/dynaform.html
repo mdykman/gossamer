@@ -1,0 +1,40 @@
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd">
+
+<body>
+
+<div id="formskel"   dx:if="*/userform">
+<form method="post" action="path" target="_new"
+    dx:env="*/userform"
+    dx:attr="method:method action:action target:!target">
+	
+<div dx:each="elements/element">
+
+	<div  style="float:left" dx:value="prompt">
+	</div>
+
+	<div dx:case="type@!eq:text" style="float:left">
+		<input type="text" dx:attr="name:name value:value"/>
+	</div>
+	<div dx:case="type@!eq:select">
+		<select dx:attr="name:name" dx:each="value/item">
+			<option dx:value="." >one</option>
+			<option dx:ignore="">two</option>
+			<option dx:ignore="">three</option>
+			<option dx:ignore="">four</option>
+		</select>
+	</div>
+	<div dx:default="">
+	don't know what to do with this element
+	</div>
+	
+	<div style="clear:left">
+	</div>
+	
+</div>
+
+</form>
+</div>
+
+
+</body>
+<html>

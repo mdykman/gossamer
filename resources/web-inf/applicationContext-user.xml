@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+<!-- 
+USER DATASOURCE
+To activate: uncomment, define the appropriate property values in gossamer.properties
+
+Multiple user definition are possible, as long as you use an id of the form: "<prefix>DataSource" 
+It will be auto-discovered by the Manager upon request
+ -->
+ 
+ <!-- this for a simple sqlite data source -->
+<!-- 
+ 	<bean id="sqliteDataSource" scope="singleton" class="org.dykman.gossamer.jdbc.SQLiteDataSource">
+		<property name="database" value="/path/to/data/file"/>
+	</bean>
+  -->
+  
+ <!-- this configures a managed connection pool
+      config values are typically specified in jdbc.properties 
+ -->
+<!--
+	<bean id="userDataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" scope="singleton">
+		<property name="driverClass" value="${user.jdbc.driverClassName}" />
+		<property name="jdbcUrl"     value="${user.jdbc.url}" />
+		<property name="user"        value="${user.jdbc.username}" />
+		<property name="password"    value="${user.jdbc.password}" />
+
+// these value work well generally; they may be tuned according to your environment
+		<property name="acquireRetryAttempts" value="10"/>
+		<property name="acquireRetryDelay" value="1000"/>
+		<property name="checkoutTimeout" value="10000"/>
+		<property name="idleConnectionTestPeriod" value="30"/>
+		<property name="maxPoolSize" value="20"/>
+		<property name="minPoolSize" value="4"/>
+		<property name="maxStatements" value="200"/>
+		<property name="maxStatementsPerConnection" value="50"/>
+	</bean>
+ -->
+
+<!-- 
+Hibernate Session
+To activate: specify your datasource (as defined above) and a .cfg.xml file
+
+Multiple user definition are possible, as long as you use an id of the form "<prefix>SessionFactory"
+It will be auto-discovered by the Manager upon request
+ -->
+
+<!-- 
+        <bean id="userSessionFactory"
+                class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+                scope="singleton">
+                <property name="dataSource">
+                        <ref bean="userDataSource" />
+                </property>
+                <property name="configLocation"
+                        value="classpath:user.cfg.xml" />
+                
+        </bean>
+ -->
+ 
+ 
+ <!-- user modifiable bean
+	The ScriptShell uses the bean "scriptBindings" to define global script variables unless this bean is defined.  Uncomment to active.
+	The programmer should feel free to customize these variables.
+	
+	vm      - the view manager
+	writer  - used to emit raw responses
+	session - the user session
+	jdbc    - the JDBC connection manager
+	hsf     - Hibernate session factory manager
+	uploads - the upload manager
+	installBase - a string showing the installation base for this instance of gossamer 
+	site    - interface to user.properties
+	requestInfo - simplified interface to information about the current HTTP request
+	reqp    - the pathinfo, minus the leading slash (deprecated; use requestInfo.pathInfo which includes the leading slash)
+	factory - a proxy for the spring bean factory
+	request - the HttpServletRequest object
+	response - the HttpServletResponse object
+	rp      - the request processor; used to invoke external controllers
+	id      - the runtime identifier; (usage is fuzzy ATM)
+    ctl     - current not in use; designed for comet responses
+-->
+<!-- 
+	<bean id="userScriptBindings" class="java.util.LinkedHashMap" scope="request">
+		<constructor-arg>
+			<map>
+				<entry key="session" value-ref="userState"/>
+				<entry key="vm" value-ref="viewManager" />
+				<entry key="uploads" value-ref="uploadManager" />
+				<entry key="factory" value-ref="beanFactory" />
+				<entry key="site" value-ref="siteProperties" />
+  				<entry key="reqp" value-ref="pathInfoString"/>
+  				<entry key="requestInfo" value-ref="requestInfo"/>
+				<entry key="request" value-ref="userRequest"/>
+				<entry key="response" value-ref="userResponse"/>
+				<entry key="device" value-ref="clientDevice" />
+				<entry key="rp" value-ref="requestProcessor" />
+				<entry key="id" value-ref="runtimeIdentifier" />
+				<entry key="writer" value-ref="responseWriter"/>				
+				<entry key="hsf" value-ref="hibernateSessionManager" />
+				<entry key="jdbc" value-ref="jdbcManager" />				
+				<entry key="installBase" value-ref="installBase" />
+				<entry key="ctl" value-ref="procController" />
+			</map>
+		</constructor-arg>
+	</bean>
+-->
+</beans>

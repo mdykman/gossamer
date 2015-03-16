@@ -1,0 +1,11 @@
+<?xml-stylesheet type="text/xsl" href="profile.html.xsl"?>
+<result>
+	<profile>
+		<userid>1</userid>
+		<username>mdykman</username>
+		<first>Michael</first>
+		<last>Dykman</last>
+		<email>mdykman@gmail.com</email>
+		<image>images/fry.jpg</image>
+	</profile>
+</result>

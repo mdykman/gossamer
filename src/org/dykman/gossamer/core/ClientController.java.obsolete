@@ -1,0 +1,141 @@
+package org.dykman.gossamer.core;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.dykman.gossamer.channel.ChannelManager;
+import org.dykman.gossamer.util.ArrayUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+public class ClientController implements Controller, ApplicationContextAware
+{
+	private Map<String, PageController> pageQueues = new  ConcurrentHashMap<String,PageController>();
+	
+	private ApplicationContext applicationContext;
+	
+	int series = 0;
+	private long timeout = 30000;
+	
+	private Map<String, Object> userData = new HashMap<String, Object>();
+	
+	String channelBlock;
+	
+	public ClientController()
+	{
+	
+	}
+
+	public PageController getPageController(String pi)
+	{
+		return fetchOrCreatePageController(pi);
+	}
+	
+	public Collection<PageController> getPageControllers()
+	{
+		return pageQueues.values();
+	}
+	public Object get(String key)
+	{
+		return userData.get(key);
+	}
+	
+	public void set(String key, Object o)
+	{
+		userData.put(key, o);
+	}
+	public void setDefaultChannels(String s)
+	{
+		channelBlock = s;
+		
+	}
+	
+//TODO: this needs a better definition
+	public String createPageIdentifier()
+	{
+		return Long.toString(System.currentTimeMillis());
+	}
+	
+	public ResponseBean[] pollQueue(String pageIdentifier,int n)
+		throws Exception
+	{
+		PageController pg = fetchOrCreatePageController(pageIdentifier);
+		return pg.pollQueue(n);
+	}
+	
+	public ResponseBean[] processAndFetch(String pageIdentifier, 
+			String component, String handler,String anon, 
+			Map<String,String> params, int seq)
+		throws Exception
+	{
+		processRequest(pageIdentifier, component, handler, anon, params);
+		PageController pg = fetchOrCreatePageController(pageIdentifier);
+		return pg.pollQueue(seq,false);
+	}
+	
+	public void processRequest(String pageIdentifier, String component, String handler,String anon, Map<String,String> params)
+	{
+		ResponseBean [] resp = null;
+		PageController pageController = fetchOrCreatePageController(pageIdentifier);
+		RequestProcessor process = (RequestProcessor) applicationContext.getBean("requestProcessor");
+		process.processRequest(pageController,component, handler, anon,params);
+		pageController.interrupt();
+	}
+	
+	public 	void interrupt()
+	{
+		for(String pi : pageQueues.keySet())
+		{
+			PageController pg = getPageController(pi);
+			pg.interrupt();
+		}
+	}
+
+	public void enqueue(ResponseBean o)
+	{
+		for(String pi : pageQueues.keySet())
+		{
+			PageController pg = fetchOrCreatePageController(pi);
+			enqueue(pg,o);
+		}
+	}
+
+	public void enqueue(PageController pg,ResponseBean o)
+	{
+		pg.enqueue(o);
+	}
+	
+	protected PageController fetchOrCreatePageController(String pageIdentifier)
+	{
+		PageController pg = pageQueues.get(pageIdentifier);
+		if(pg == null)
+		{
+			pg = new PageController();
+			pg.setApplicationContext(applicationContext);
+			pageQueues.put(pageIdentifier,pg);
+		}
+		return pg;
+	}
+	
+	public void setApplicationContext(ApplicationContext bf)
+	{
+		applicationContext = bf;
+		String[] cc = ArrayUtils.fromStringBlock(this.channelBlock);
+				ChannelManager supervisor = (ChannelManager) applicationContext.getBean("channelManager");
+	}
+
+	public long getTimeout()
+    {
+    	return timeout;
+    }
+
+	public void setTimeout(long timeout)
+    {
+    	this.timeout = timeout;
+    }
+
+
+
+}

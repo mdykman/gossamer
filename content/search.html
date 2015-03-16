@@ -1,0 +1,92 @@
+ <HTML>
+<HEAD>
+	<TITLE>Search engine, meet your new face</TITLE>
+	<LINK rel="stylesheet" type="text/css" href="CSS/search.css"/>
+	<SCRIPT type="text/javascript" src="JS/jQuery-1.2.6.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="JS/jQuery.corner.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="JS/jquery.ui-1.5/ui/jquery.ui.all.js"></SCRIPT>
+	<SCRIPT type="text/javascript" src="JS/jquery.ui-1.5/ui/ui.slider.js"></SCRIPT>
+	<SCRIPT type="text/javascript">
+		$(document).ready(function(){
+			$("#attributeList").sortable({
+					connectWith: ["#searchList"],
+					handle: 'div.atrb-Desc',
+					placeholder: 'sortHelper',
+					helper:	'clone',
+																 });
+			$("#searchList").sortable({
+					connectWith: ["#attributeList"],
+					handle: 'div.atrb-Desc',
+					placeholder: 'sortHelper',
+					helper:	'clone',
+															});
+			$(".ui-slider").slider({});
+																});
+	</SCRIPT>
+</HEAD>
+<BODY>
+	<DIV id="attributeList" class="search">
+		<DIV id="atrb1" class="attribute">
+			<DIV id="atrb1-Desc" class="atrb-Desc">How do you feel about dogs</DIV>
+			<DIV id="atrb1-Slider" class="ui-slider">
+				<DIV id="atrb1-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb2" class="attribute">
+			<DIV id="atrb2-Desc" class="atrb-Desc">How do you feel about cats</DIV>
+			<DIV id="atrb2-Slider" class="ui-slider">
+				<DIV id="atrb2-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb3" class="attribute">
+			<DIV id="atrb3-Desc" class="atrb-Desc">How do you feel about daniel</DIV>
+			<DIV id="atrb3-Slider" class="ui-slider">
+				<DIV id="atrb3-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb4" class="attribute">
+			<DIV id="atrb4-Desc" class="atrb-Desc">How do you feel about tracy</DIV>
+			<DIV id="atrb4-Slider" class="ui-slider">
+				<DIV id="atrb4-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb5" class="attribute">
+			<DIV id="atrb5-Desc" class="atrb-Desc">How do you feel about this page</DIV>
+			<DIV id="atrb5-Slider" class="ui-slider">
+				<DIV id="atrb5-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb6" class="attribute">
+			<DIV id="atrb6-Desc" class="atrb-Desc">How do you feel about everything</DIV>
+			<DIV id="atrb6-Slider" class="ui-slider">
+				<DIV id="atrb6-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb7" class="attribute">
+			<DIV id="atrb7-Desc" class="atrb-Desc">Night or Day</DIV>
+			<DIV id="atrb7-Slider" class="ui-slider">
+				<DIV id="atrb7-slider-handle" class="slider-handle"></DIV>	
+			</DIV>
+		</DIV>
+		<DIV id="atrb8" class="attribute">
+			<DIV id="atrb8-Desc" class="atrb-Desc">Yes or No</DIV>
+			<DIV id="atrb8-Slider" class="ui-slider">
+				<DIV id="atrb8-slider-handle" class="slider-handle"></DIV>
+			</DIV>
+		</DIV>
+		<DIV id="atrb9" class="attribute">
+			<DIV id="atrb9-Desc" class="atrb-Desc">Movies or Plays</DIV>
+			<DIV id="atrb9-Slider" class="ui-slider">
+				<DIV id="atrb9-slider-handle" class="slider-handle"></DIV>	
+			</DIV>
+		</DIV>
+		<DIV id="atrb10" class="attribute">
+			<DIV id="atrb10-Desc" class="atrb-Desc">Daniel or Tracy</DIV>
+			<DIV id="atrb10-Slider" class="ui-slider">
+				<DIV id="atrb10-slider-handle" class="slider-handle"></DIV>	
+			</DIV>
+		</DIV>
+	</DIV>
+	<DIV id="searchList" class="search"></DIV>
+</BODY>
+</HTML>

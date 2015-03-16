@@ -1,0 +1,18 @@
+<html>
+<head>
+</head>
+<body style="background-color: #ccccff">
+<div>The style is
+<span dx:value="*/style">some-style</span>
+</div>
+
+<form method="post">
+<select name="style">
+	<option dx:value="*/style" selected="true" >default</option>
+	<option dx:each="*/choices/*" dx:value=".">another</option>
+	<option dx:ignore="">other</option>
+</select><br/>
+<input type="submit" value="choose"/>
+</form>
+</body>
+</html>

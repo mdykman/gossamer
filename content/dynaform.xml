@@ -1,0 +1,34 @@
+<?xml-stylesheet href="dynaform.html.xsl" type="text/xsl" ?>
+<result>
+
+<userform>
+	<name>myform</name>
+	<action>/rq/test/form</action>
+	<method>post</method>
+	<target>self</target>
+  <elements>
+  	<element>
+  		<prompt>First Name</prompt>
+  		<name>firstname</name>
+  		<type>text</type>
+  		<value>type your first name here</value>
+  	</element>
+  	<element>
+  		<prompt>Last Name</prompt>
+  		<name>lastname</name>
+  		<type>text</type>
+  		<value>type your last name here</value>
+  	</element>
+  	<element>
+  		<prompt>Age</prompt>
+  		<name>age</name>
+  		<type>select</type>
+  		<value>
+  			<item>young</item>
+  			<item>not young</item>
+  			<item>really old</item>
+  		</value>
+  	</element>
+  </elements>
+</userform>
+</result>

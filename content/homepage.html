@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd" style="margin:4px;">
+<head>
+	<title dx:value="!*/title">This is the Page Title</title>
+</head>
+<body>
+<script dx:case="*/status@!eq:noLogin">
+window.location="login";
+</script>
+<div dx:default="" dx:ghost="">
+<div id="myTextAd" dx:if="*/textad" dx:env="*/textad" 
+	style="float:right; width:200px; background-color:#f0f0ff;">
+ <center><b dx:value="title">Ad Title</b></center>
+ 	<div dx:ccpy="contentHTML">
+ 	Here is some random, <b>well-formed</b> HTML. this might be a short 
+ 	piece of the or some html with an embedded target
+ 	</div>
+</div>
+
+<div id="myBannerAd" dx:if="*/bannerad" dx:env="*/bannerad" 
+	style="float:left; background-color:#fff0f0; margin:0px; padding: 4px;"
+		><a dx:attr="href:targetUrl" href="http://www.google.ca" target="_new" 
+		><img dx:attr="src:imageUrl" src="images/banner-sample.jpg" border="0" /></a></div>
+
+<div style="font-size:+1; font-weight: bold; center; vertical-align: middle; text-align: center" 
+	dx:value="!*/title">This is the Page Title</div>
+
+<div id="spacer" style="clear:both; height:10px;"></div> 
+
+<div id="main" dx:ccpy="*/home" style="margin:4px; padding: 4px;">
+ <b>Lorem ipsum</b> dolor sit amet, consectetuer adipiscing elit. Duis tempus nulla a risus. 
+ Aenean consequat bibendum magna. Vestibulum iaculis. Vestibulum mauris. Nunc purus 
+ magna, mollis ut, scelerisque id, luctus eget, diam. Aliquam quis augue. Donec est. 
+ Vivamus dui diam, semper id, fringilla eu, feugiat quis, erat. Aliquam quam diam, 
+ gravida ut, sodales quis, lacinia vel, eros. Duis magna neque, vulputate ac, imperdiet
+ et, posuere sed, nisi. Aliquam at mauris. Fusce cursus. Duis volutpat. Vestibulum nec 
+ tellus ut pede lacinia congue. Mauris sit amet tortor sit amet magna venenatis tempus.
+ </div>
+</div>
+</body>
+</html>

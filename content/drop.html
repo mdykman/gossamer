@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd">
+	<head>
+		<title>Profile Page</title>
+		<link rel="stylesheet" type="text/css" href="CSS/new.css"/>
+		<script type="text/javascript" src="JS/jQuery-1.2.6.js"></script>
+		
+		<script type="text/javascript" src="JS/jQuery.corner.js"></script>
+		<script type="text/javascript" src="JS/jquery.ui-1.5/ui/jquery.ui.all.js"></script>
+		<link rel="stylesheet" href="/css/base.css" type="text/css" media="screen">
+ <link rel="stylesheet" href="/css/functional_demos.css" type="text/css" media="screen">
+ <link rel="stylesheet" href="/css/chilli-recipes.css" type="text/css" media="screen">
+
+<script src="/JS/ui.js" type="text/javascript"></script>
+		<script type="text/javascript" >
+			$(document).ready(function(){
+				$("#T1").draggable({ 
+    helper: "clone" 
+});
+				$("#T2").draggable({ 
+    helper: "clone" 
+});
+				$("#T3").draggable({ 
+    helper: "clone" 
+});
+$(".droppable-photos-container").droppable({ 
+    accept: ".img_content", 
+    drop: function(ev, ui) { 
+        ui.draggable.clone().fadeOut("fast", 
+        function() { 
+            $(this).fadeIn("fast") 
+        }).appendTo($(this).empty()); 
+    } 
+});
+$(".drop").droppable({ 
+    accept: ".block, .red, .green", 
+    activeClass: "droppable-active", 
+    drop: function(ev, ui) { 
+        $(this).append("Dropped! "); 
+    } 
+});
+});	
+		</script>
+	</head>
+	<body>
+<div class="ui-html-rendered">
+<div id="droppablePhotos" style="min-height: 130px; height: auto ! important;">
+<ul class="droppable-gallery">
+<li class="droppable-img-content">
+<img id="T1" class="img_content ui-draggable" title="Drag me!" alt="Tatry 1" src="http://ui.jquery.com/repository/demos_templates/images/P1010020.JPG"/>
+</li>
+<li class="droppable-img-content">
+<img id="T2" class="img_content ui-draggable" title="Drag me!" alt="Tatry 3" src="http://ui.jquery.com/repository/demos_templates/images/P1010039.JPG"/>
+</li>
+<li class="droppable-img-content">
+<img id="T3" class="img_content ui-draggable" title="Drag me!" alt="Tatry 4" src="http://ui.jquery.com/repository/demos_templates/images/P1010044.JPG"/>
+</li>
+</ul>
+<div class="droppable-photos-container ui-droppable" style="text-align: center;">Drop here!</div>
+</div>
+</div>
+<div class="block" id="T4" >.block</div><div class="draggable red" id="T5" >.red</div><div class="draggable green" id="T6"  >.green</div><div class="drop">Drop on me!<br><br></div>
+</body>

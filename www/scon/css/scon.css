@@ -1,0 +1,161 @@
+.ctlbutton {
+font-family: helvetica,sans-serif;
+font-size: 84%;
+}
+
+.filelist {
+ height: 400px;
+ overflow: scroll;
+ border: 1px solid #666;
+ background-color: #CCCCFF
+
+ font-size: 10pt;
+ font-family: helvetica, monospaced;
+ padding: 10px;
+}
+
+.listblur {
+ background-color: #CCCCFF
+ color: #7777CC;
+ padding: 2px;
+}
+
+.listfocus {
+ background-color: #AAAADD
+ color: #333399;
+ padding: 2px;
+}
+
+.listrowblur {
+ background-color: #ccccff
+}
+
+.listrowfocus {
+ background-color: #DDDDFF
+}
+
+.tabblur {
+ color: #7777CC;
+ font-family: helvetica, monospaced;
+}
+
+.tabfocus {
+ color: #111144;
+ font-family: helvetica, monospaced;
+}
+
+.ctltext {
+ color: #333366;
+ font-size:8pt;
+ font-family: helvetica, monospaced;
+}
+
+
+.folder {
+	font-size: 9pt;
+	font-family: Verdana; san-serif;
+}
+.file {
+	font-size: 9pt;
+	font-family: Verdana; san-serif;
+}
+
+UL {
+	font-family: Verdana, sans-serif;
+	line-height: 16px;
+	padding: 0px;
+	margin: 0px;
+}
+
+UL LI {
+	list-style: none;
+	padding: 0px;
+	padding-left: 20px;
+	padding-right: 2px;
+	margin: 0px;
+	white-space: nowrap;
+}
+
+UL A {
+	color: #333;
+	text-decoration: none;
+	display: block;
+	padding: 0px 2px;
+}
+
+UL LI SPAN{
+	width: 100%;
+}
+
+UL LI SPAN:hover {
+	background: #BDF;
+}
+
+LI.folder { background: url(/scon/images/directory.png) left top no-repeat; }
+LI.expanded { background: url(/scon/images/folder_open.png) left top no-repeat; }
+LI.file { background: url(/scon/images/file.png) left top no-repeat; }
+LI.wait { background: url(/scon/images/spinner.gif) left top no-repeat; }
+/* File Extensions*/
+LI.ext_3gp { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_afp { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_afpa { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_asp { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_aspx { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_avi { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_bat { background: url(/scon/images/application.png) left top no-repeat; }
+LI.ext_bmp { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_bsh { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_c { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_cfm { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_cgi { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_com { background: url(/scon/images/application.png) left top no-repeat; }
+LI.ext_cpp { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_css { background: url(/scon/images/css.png) left top no-repeat; }
+LI.ext_doc { background: url(/scon/images/doc.png) left top no-repeat; }
+LI.ext_exe { background: url(/scon/images/application.png) left top no-repeat; }
+LI.ext_gif { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_groovy { background: url(/scon/images/groovy.png) left top no-repeat; }
+LI.ext_fla { background: url(/scon/images/flash.png) left top no-repeat; }
+LI.ext_h { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_htm { background: url(/scon/images/html.png) left top no-repeat; }
+LI.ext_html { background: url(/scon/images/html.png) left top no-repeat; }
+LI.ext_jar { background: url(/scon/images/java.png) left top no-repeat; }
+LI.ext_jpg { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_jpeg { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_js { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_jy { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_lasso { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_log { background: url(/scon/images/txt.png) left top no-repeat; }
+LI.ext_m4p { background: url(/scon/images/music.png) left top no-repeat; }
+LI.ext_mov { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_mp3 { background: url(/scon/images/music.png) left top no-repeat; }
+LI.ext_mp4 { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_mpg { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_mpeg { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_ogg { background: url(/scon/images/music.png) left top no-repeat; }
+LI.ext_pcx { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_pdf { background: url(/scon/images/pdf.png) left top no-repeat; }
+LI.ext_php { background: url(/scon/images/php.png) left top no-repeat; }
+LI.ext_png { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_ppt { background: url(/scon/images/ppt.png) left top no-repeat; }
+LI.ext_psd { background: url(/scon/images/psd.png) left top no-repeat; }
+LI.ext_pl { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_py { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_rb { background: url(/scon/images/ruby.png) left top no-repeat; }
+LI.ext_rbx { background: url(/scon/images/ruby.png) left top no-repeat; }
+LI.ext_rhtml { background: url(/scon/images/ruby.png) left top no-repeat; }
+LI.ext_rpm { background: url(/scon/images/linux.png) left top no-repeat; }
+LI.ext_ruby { background: url(/scon/images/ruby.png) left top no-repeat; }
+LI.ext_sql { background: url(/scon/images/db.png) left top no-repeat; }
+LI.ext_scm { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_sl { background: url(/scon/images/script.png) left top no-repeat; }
+LI.ext_swf { background: url(/scon/images/flash.png) left top no-repeat; }
+LI.ext_tif { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_tiff { background: url(/scon/images/picture.png) left top no-repeat; }
+LI.ext_txt { background: url(/scon/images/txt.png) left top no-repeat; }
+LI.ext_vb { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_wav { background: url(/scon/images/music.png) left top no-repeat; }
+LI.ext_wmv { background: url(/scon/images/film.png) left top no-repeat; }
+LI.ext_xls { background: url(/scon/images/xls.png) left top no-repeat; }
+LI.ext_xml { background: url(/scon/images/code.png) left top no-repeat; }
+LI.ext_zip { background: url(/scon/images/zip.png) left top no-repeat; }

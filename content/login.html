@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd">
+	<body>
+	<h3 align="center" dx:value="*/date">fake Mc Date</h3>
+		<form method="post" action="login">
+			Username: <input type="text" name="username" /><br />
+			Password: <input type="password" name="password" /><br />
+			<input type="submit" name="userAction" value="login" />
+		</form>
+		
+		<h3 align="center" dx:value="*/regmsg" dx:case="*/regmsg">This is a message</h3>
+		<div dx:default="" >
+		<h3 align="center">Registration</h3>
+				<form method="post" action="login">
+			Username: <input type="text" name="username" /><br />
+			Password: <input type="password" name="password" /><br />
+			First: <input type="text" name="first" /><br />
+			Last:  <input type="text" name="last" /><br />
+			Email: <input type="text" name="email" /><br />
+			<input type="submit" name="userAction" value="registerMember" />
+		</form>
+	</div>
+	</body>
+</html>

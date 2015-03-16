@@ -1,0 +1,57 @@
+<html>
+<head>
+
+<script type='text/javascript' src='dwr/interface/controller.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type="text/javascript" src="js/Agora.js"></script>
+
+<script>
+var dispatcher = new Agora();
+
+dispatcher.listen("groovy", {
+    login: function(r) {
+		if(r.status == 1) {
+		  location="/home";
+		} else {
+		   if(r.message)
+		   {
+			   var el = document.getElementById("message");
+			   var tt = document.createTextNode(r.message);
+			   if(el.firstChild) {
+					el.replaceChild(tt,el.firstChild);
+			   } else {
+			   		el.appendChild(tt);
+			   }
+		   }
+		}
+    }
+ });
+
+function gologin(frm) {
+  var params = {
+  	username: frm.username.value,
+  	password: frm.password.value
+  };
+  
+  dispatcher.groovy.login(params);
+  return false;
+}
+</script>
+</head>
+
+<body>
+registration status: <span dx:value="*/message">some status</span><br/>
+Welcome <span  dx:value="*/username">someone</span>
+
+Please login
+<form name="login" onsubmit="return gologin(this);">
+username <input type="text" name="username" dx:attr="value:*/username"/><br/>
+password <input type="password" name="password" /><br/>
+<input type="submit" value="login" />
+</form>
+
+<div id="message" >
+</div>
+
+</body>
+</html>

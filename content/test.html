@@ -1,0 +1,62 @@
+<html>
+<head>
+<script type='text/javascript' src='dwr/interface/controller.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type="text/javascript" src="js/Agora.js"></script>
+
+
+</head>
+<body>
+<script type="text/javascript">
+		dispatcher = new Agora({
+			cometEnabled: true,
+			debug: true,
+			retryMin: 500,
+			retryMax: 120000,
+			retryFactor: 1.5,
+			onNetworkError: function(n,msg) {
+				if(0 == n % 5) {
+					return confirm("trouble connecting: + " + msg + ".  Keep trying?");
+				}
+				else return true;
+			}
+		});
+		
+		dispatcher.listen("user",{
+			getAll: function(result) {
+				showRecords(result);
+			}
+		});
+		
+		dispatcher.onReady(function () {
+			dispatcher.user.getAll();
+		});
+		
+		function showRecords(users) {
+			var cont = document.getElementById('container');
+			var cc = cont.childNodes;
+			var i;
+			for(i = 0; i < cc.length; ++i)
+			{
+				cont.removeChild(cc[i]);
+			}
+			
+			var el = document.getElementById('prototype');
+			for(i = 0; i < users.length; ++i)
+			{
+				var nn = el.cloneNode(true);
+				var r = users[i];
+				var s = "" + r.userid + " " + r.username + " " 
+					+ r.first + " " + r.last;
+				nn.appendChild(document.createTextNode(s));
+				cont.appendChild(nn);
+				nn.style.visibility = "visible";
+			}
+		}
+</script>
+
+<div id="container"/>
+<div id="prototype" style="visibility:hidden" />
+
+</body>
+</html>

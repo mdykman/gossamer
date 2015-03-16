@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+
+<title>Gossamer Script Console </title>
+
+<script type="text/javascript" src="/scon/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/scon/js/jquery-xslite.js"></script>
+<script type="text/javascript" src="/scon/js/scon.js"></script>
+<script type="text/javascript" src="/scon/js/edit_area/edit_area_full.js"></script>
+<script type="text/javascript" src="/scon/js/jquery-contextmenu/jquery.contextMenu.js"></script>
+<link href="/scon/css/scon.css" rel="stylesheet" type="text/css" />
+<link href="/scon/js/jquery-contextmenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body style="background-color:#ccffcc">
+<center> Michael's Development Script Console  </center>
+<div>
+<a href="javascript:void(0)" onclick="showEditor();" id="editorselect" class="tabfocus">editor</a>
+-
+<a href="javascript:void(0)" onclick="showMappings();" id="mappingselect" class="tabblur" >mappings</a>
+</div>
+
+<div id="scripteditor"  
+  style="width:100%; position:absolute; left: 8; top: 32; visibility: visible; z-index: 2;">
+<div >
+<form id="ctlfrm" action="/scon" method="post" target="outwin"
+   style="float: left; width: 100%;"
+   onsubmit="return checkSubmission(this)">
+<div id="controls">
+   <div>
+   <input type="hidden" name="format" value="y"/>
+   <input type="hidden" name="xlistb" value="n"/>
+
+<!--
+<input name="newb" class="ctlbutton" type="submit" value="new"  onclick="newCalled=true;"/> 
+ -->
+   <input name="saveb" class="ctlbutton" type="submit" value="save" onclick="saveCalled=true;"/> 
+<input name="runb" class="ctlbutton" type="submit" value="run"  onclick="runCalled=true;"/>&nbsp;<input type="text" name="args"  size="40"/>
+<span class="ctltext">data</span><input type="checkbox" name="forceddata" value="y"/>
+<span class="ctltext" >json</span><input type="checkbox" name="forcedjson" value="y"/>
+   </div>
+</div>
+
+<div style="float:left; width:220px; height:450px; overflow:auto;">
+   <div id="filelist" style="float:left;" ></div>
+</div>
+<div style="float:left">
+
+<textarea  id="editpane" accesskey="e" name="script" rows="28" cols="100"></textarea>
+</div>
+</form>
+
+
+</div>
+
+</div>
+
+<div id="mappingeditor" 
+   style="position:absolute; left: 8; top: 32;  visibility: hidden; z-index: 0;">
+<div>mappings</div>
+<div style="float:left;">
+<form id="mapfrm" action="/scon" method="post" target="outwin"
+ onsubmit="return checkMappings(this);">
+<div>
+
+   <input type="submit" name="fetchb" value="load" onclick="mloadCalled=true;" />
+   <input type="submit" name="mfulltestb" value="test"  onclick="msaveCalled=true;" />
+   save <input type="checkbox" name="msaveb" value="y" />
+   <input type="submit" name="mtestb" value="translate"  onclick="mtransCalled=true;" />
+   <input type="text" name="input" />
+   <div style="float:left">
+    <textarea accesskey="m" name="config" rows="30" cols="80"></textarea>
+  </div>
+</div>
+</form>
+</div>
+<div id="mdisp" style="float:left; width:40%">
+</div>
+</div>
+
+<ul id="fileMenu" class="contextMenu">
+   <li class="cmfopen">
+      <a href="#open">Open</a>
+   </li>
+   <li class="cmfnew">
+      <a href="#newfile">New File</a>
+   </li>
+   <li class="cmfrename">
+      <a href="#rename">Rename</a>
+   </li>
+   <li class="cmdup">
+      <a href="#duplicate">Copy File</a>
+   </li>
+   <li class="cmdexter cmseparator">
+      <a href="#dexter">Dexter</a>
+   </li>
+   <li class="cmdelete cmseparator">
+      <a href="#delete">Delete</a>
+   </li>
+   <li class="cmcancel cmseparator">
+      <a href="#cancel">Cancel</a>
+   </li>
+</ul>
+
+<ul id="folderMenu" class="contextMenu">
+   <li class="cmdopen">
+      <a href="#open">Open</a>
+   </li>
+   <li class="cmfnew">
+      <a href="#newfile">New File</a>
+   </li>
+   <li class="cmdnew">
+      <a href="#newfolder">New Folder</a>
+   </li>
+   <li class="cmdclose">
+      <a href="#close">Close</a>
+   </li>
+   <li class="cmdelete cmseparator">
+      <a href="#delete">Delete</a>
+   </li>
+   <li class="cmcancel cmseparator">
+      <a href="#cancel">Cancel</a>
+   </li>
+</ul>
+
+
+
+<script type="text/javascript">
+
+
+$(document).ready( function() {
+
+   editAreaLoader.init({
+         id: "editpane" // id of the textarea to transform     
+         ,start_highlight: true  // if start with highlight
+         ,allow_resize: "both"
+         ,allow_toggle: false
+         ,word_wrap: false
+         ,language: "en"
+         ,is_multi_files: true
+         ,replace_tab_by_spaces: 3
+         ,syntax_selection_allow: "html,groovy,beanshell,js,php,python,ruby,xml,sql"
+      });
+   loadDirectory('/',$('#filelist').get(0),true);
+});
+</script>
+
+</body>
+</html>

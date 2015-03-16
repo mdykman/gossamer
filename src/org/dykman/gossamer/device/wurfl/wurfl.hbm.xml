@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.dykman.gossamer.device.wurfl.Device" table="devices">
+		<id name="did" unsaved-value="-1" type="int" column="did">
+			<generator class="native" />
+		</id>
+		<property name="deviceId" column="device_id" />
+		<property name="root" column="isroot" />
+		<property name="userAgent" column="user_agent" />
+		<property name="fallbackId" column="fallback_id" />
+	</class>
+
+	<class name="org.dykman.gossamer.device.wurfl.Group" table="groups">
+		<id name="gid" unsaved-value="-1" type="int" column="gid">
+			<generator class="native" />
+		</id>
+		<property name="label" column="label" />
+	</class>
+	
+	<class name="org.dykman.gossamer.device.wurfl.Attribute" table="attributes">
+		<id name="aid" unsaved-value="-1" type="int" column="aid">
+			<generator class="native" />
+		</id>
+		<property name="did" column="did" />
+		<property name="gid" column="gid" />
+		<property name="name" column="name" />
+		<property name="value" column="val" />
+	</class>
+</hibernate-mapping>

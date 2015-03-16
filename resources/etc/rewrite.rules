@@ -1,0 +1,5 @@
+/                                        /rq/admin/welcome                     R
+/console                                 /scon                            C
+/rss(.*)                                 /render/rss$1                    R
+/scon(.*)				$0                   F
+/scon(.*)				/rq/scon/scon$1                   R

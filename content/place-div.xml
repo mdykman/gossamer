@@ -1,0 +1,24 @@
+<!-- iterate through a set of news article, each with differnt sizes..
+<result>
+	<news>
+		<article>
+			<width>20</width>
+			<height>50</height>
+			<stuff></stuff>
+		</article>
+		...
+	</news>
+</result>
+	
+-->
+<!--
+ATTENTION TO THIS
+   dx:attr -- sorry, spaces not allowed in an expression at this point so it's tricky 
+ -->
+<div style="height:" 
+	dx:each="*/news/article" 
+	dx:attr="style: height:{height};width:{width};">
+<span dx:ccp="stuff">some stuff goes in here
+</span>
+
+</div>

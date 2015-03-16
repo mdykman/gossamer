@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:dx="http://dexter-xsl.googlecode.com/svn/trunk/schema/dexterity-1.0.xsd">
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/front.css"/>
+		<script type="text/javascript" src="js/jquery-1.2.6.js"></script>
+		<script type="text/javascript" src="js/jquery.gradient.js"></script>
+		<script type="text/javascript" src="js/jquery.dimensions.js"></script>
+		<script type="text/javascript" src="js/jquery.corner.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			$('.topContainerClass').gradient({
+				from: 'D7BED5',
+				to: 'FFFFFF',
+				direction: 'vertical'															 
+																			 });
+			$('.featured').corner("10px");
+		});
+		</script>
+	</head>
+	<body>
+		<div id="container" name="container" class="containerClass">
+			<div id="topContainer" name="topContainer" class="topContainerClass">
+				<div id="topImage" name="topImage" class="topImageClass"></div>
+				<div id="topLogo" name="topLogo" class="topLogoClass"></div>
+			</div>
+			<div id="middleContainer" name="middleContainer" class="middleContainerClass">
+				<div id="middleBlurb" name="middleBlurb" class="middleBlurbClass"></div>
+				<div id="middleFeatured" name="middleFeatured" class="middleFeaturedClass">
+					<div id="featured1" name="featured1" class="featured"></div>
+					<div id="featured2" name="featured2" class="featured"></div>
+					<div id="featured3" name="featured3" class="featured"></div>
+					<div id="featured4" name="featured4" class="featured"></div>
+				</div>
+			</div>
+			<div id="bottomContainer" name="bottomContainer" class="bottomContainerClass">
+				<div id="bottomLogin" name="bottomLogin" class="bottomLoginClass">
+					<form>
+						<span class="loginLabel">	
+							Username: 
+						</span> 
+						<input type="text" name="user" class="loginElement"/><br/>
+						<span class="loginLabel">
+							Password: 
+						</span>
+						<input type="password" name="passwrd" class="loginElement"/>
+					</form>
+				</div>
+				<div id="bottomImage" name="bottomImage" class="bottomImageClass"></div>
+			</div>
+			<div id="textLinks" name="textLinks" class="textLinksClass">|
+				<a href="register" class="textLinksText">register</a> |
+				<a href="javascript:void(0)" class="textLinksText">about us</a> |
+				<a href="javascript:void(0)" class="textLinksText">sitemap</a> |
+				<a href="javascript:void(0)" class="textLinksText">affiliates</a> |
+			</div>
+		</div>
+	</body>
+</html>

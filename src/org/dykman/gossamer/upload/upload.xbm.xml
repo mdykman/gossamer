@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.dykman.gossamer.upload.FileUpload" table="file_upload">
+        <id name="fileUploadID" type="int" unsaved-value="-1" column="uploadID">
+            <generator class="native" />
+        </id>
+        <property name="uploadTime" column="upload_time" />
+        <property name="originName" column="origin_name" />
+        <property name="storagePath" column="storage_path" />
+        <property name="mimeType" column="content_type" />
+        <property name="size" column="upload_size" />
+        <property name="secureHash" column="secure_hash" />
+        <property name="remoteAddress" column="remote_address" />
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,104 @@
+<html>
+<head>
+
+<script type='text/javascript' src='dwr/interface/controller.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type="text/javascript" src="js/Agora.js"></script>
+
+<script type="text/javascript" src="js/chatmanager.js"></script>
+<LINK rel="stylesheet" type="text/css" href="css/chat.css"/>
+</head>
+<body>
+<div>
+
+<div id="chat-container" class="chat-container">
+<div id="chat-status" class="chat-status"></div>
+
+<div id="chat-display" class="chat-display"></div>
+
+</div>
+
+<div id ="chat-control" class="chat-ctl">
+
+
+<form name="joiner" action="javascript:void(0);" onsubmit="joinChat(this);">
+
+<select name="channel">
+	<option selected="selected" >general</option>
+	<option>dating</option>
+	<option>private</option>
+</select>
+
+<input name="username" />
+<input type="submit" value="join" />
+</form>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+		dispatcher = new Agora({
+			cometEnabled: true,
+			debug: true,
+			retryMin: 500,
+			retryMax: 120000,
+			retryFactor: 1.5,
+			onNetworkError: function(n,msg) {
+				if(0 == n % 5) {
+					return confirm("trouble connecting: + " + msg + ".  Keep trying?");
+				}
+				else return true;
+			}
+		});
+	
+// a chat manager may be any object which has the foolwing methods:
+//	display(channel,user,text); // create or update a group -viewing component
+//	status(text) // display a status message to the user
+//	editMessage(); // prepare to edit message
+//	editChannel(); // prepare to edit channel
+
+	var chatManager = new ChatManager('chat-display','chat-status');
+
+		
+
+// declare your interests.  for each function in the handler object, a corresponding
+// caller function will be auto-magically generated thus:
+//    dispatcher.chat.display(data,cb)
+//    dispatcher.chat.join(data,cb)
+//    dispatcher.chat.leave(data,cb)
+//    dispatcher.chat.chat(data,cb)
+//    dispatcher.chat.ping(data,cb)
+//  
+//    data is an object containing named primative/string values.
+//
+//    cb is an optional callback function which will be invoked directly
+//    causing the listener stack to be bypassed.
+
+	dispatcher.listen("chat", {
+		display: function(result) {
+			chatManager.display(result.channel,result.user, result.text);
+		},
+		join: function(result) {
+			chatManager.status("you have joined " + result.channel 
+				+ " as user " + result.username);
+			chatManager.display(result.channel,result.username);
+		},
+		leave: function(result) {
+			chatManager.status(result);
+		},
+		chat: function(result) {
+// chat returns nothing, having broadcast it's result to 
+// interested 'display' listeners
+// it is declared here, nonetheless, to get the auto-magically created
+// dispatcher.chat.chat() method, which automates all outbound messages
+		}
+	});
+	
+</script>
+</body>
+</html>

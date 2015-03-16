@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="installBase" class="java.lang.String" scope="singleton">
+		<constructor-arg value="${gossamer.path.base}"/>
+	</bean>
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/gossamer.properties</value>
+				<value>/WEB-INF/jdbc.properties</value>
+				<value>/WEB-INF/site.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="jdbcManagerFactory" class="org.dykman.gossamer.jdbc.JdbcManagerFactory" scope="singleton"/>
+
+	<bean id="jdbcManager" scope="request" 
+		factory-bean="jdbcManagerFactory" factory-method="getJdbcManager"
+		destroy-method="closeAll" />
+
+	<bean id="hibernateSessionManagerFactory" scope="singleton"
+		class="org.dykman.gossamer.hibernate.SessionFactoryManagerFactory"/>
+	
+
+	<bean id="hibernateSessionManager" scope="request" 
+		factory-bean="hibernateSessionManagerFactory" factory-method="createSessionFactoryManager"
+		destroy-method="closeAll" />
+
+	<bean id="wurfliteDataSource" scope="singleton" class="org.dykman.gossamer.jdbc.SQLiteDataSource">
+		<property name="database" value="${gossamer.path.base}/${gossamer.sqlite.wurfl}"/>
+	</bean>
+	
+	
+	<bean id="runtimeIdentifier" scope="singleton" 
+		factory-bean="runtimeIdentifierFactory"
+		factory-method="getIdentifier"
+	/>
+
+	<bean id="runtimeIdentifierFactory" scope="singleton" 
+		class="org.dykman.gossamer.webapp.RuntimeIdentifier" />
+  
+	<bean id="deviceProfileFactory" scope="singleton"
+		class="org.dykman.gossamer.device.SmartDeviceProfileFactory">
+		<property name="fallBackFactoryId" value="jdbcProfileFactory" />
+		<property name="cacheDevices" value="${gossamer.device.cacheDevices}" />
+		<property name="cacheAttributes" value="${gossamer.device.cacheAttributes}" />
+	</bean>
+	
+<!--
+	<bean id="wurflDeviceProfileFactory" scope="request">
+		<property name="jdbcProfileFactory" ref="jdbcProfileFactory" />
+		<property name="connection" >
+			<bean scope="request" factory-bean="jdbcFactory" factory-method="getConnection">
+  	  			<constructor-arg value="${gossamer.wurfl.db}" />
+    		</bean>
+		</property>
+	</bean>
+ -->
+	<bean id="jdbcProfileFactory" scope="request" 
+		class="org.dykman.gossamer.device.wurfl.JdbcProfileFactory" >
+		<property name="defaultDevice" value="${gossamer.client.defaultDevice}" />
+		<property name="connectionId"  value="${gossamer.wurfl.db}" />
+	</bean>
+
+
+	<bean id="handlerFactory"  scope="request"
+		 class="org.dykman.gossamer.handler.SimpleHandlerFactory">
+		<property name="decorators" >
+			<list>
+				<ref bean="requestPathDecorator" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="requestPathDecorator"  scope="request"
+		class="org.dykman.gossamer.webapp.PathInfoDecorator">
+		<property name="requestHolder"><ref bean="requestHolder"/></property>
+	</bean>
+<!-- 	
+	<bean id="requestMapper" scope="singleton"
+		class="org.dykman.gossamer.webapp.rewrite.RegexRequestMapper" init-method="init">
+		<property name="rulePath" value="${gossamer.path.base}/${gossamer.rewrite.rules}" />
+		<property name="resourceBase" value="${gossamer.path.base}/${gossamer.resources.base}" />	
+	</bean>
+ -->
+	<bean id="requestMapper" scope="prototype"
+		factory-bean="requestMapperFactory" factory-method="createRequestMapper" />
+
+	<bean id="requestMapperFactory" scope="singleton"
+		class="org.dykman.gossamer.webapp.rewrite.RegexRequestMapperFactory">
+		<property name="rulePath" value="${gossamer.path.base}/${gossamer.rewrite.rules}" />
+		<property name="resourceBase" value="${gossamer.path.base}/${gossamer.resources.base}" />	
+	</bean>
+
+
+
+	<bean id="channelManager" scope="singleton" 
+		class="org.dykman.gossamer.channel.LocalChannelManager" >
+			<property name="coreChannels" value="${gossamer.defaultChannels}"/>
+	</bean>
+
+<!-- 
+	<bean id="userInterface" class="org.dykman.gossamer.core.ControllerInterface"
+		scope="request"> 
+		<property name="controller"><ref bean="clientController"/></property>
+	</bean>				
+ -->
+<!--  
+	<bean id="clientController" class="org.dykman.gossamer.core.ClientController" 
+		scope="session">
+			<property name="timeout" value="30000" />
+			<property name="defaultChannels" value="${gossamer.defaultChannels}" />
+	</bean>
+ -->
+<!--  framework mechanical beans -->
+<!--  
+	<bean id="requestIdler" class="org.dykman.gossamer.dwr.ContinuationIdler" 
+		scope="request">
+		<property name="timeout" value="${gossamer.continuationTimout}" />
+	</bean>
+-->
+	<bean id="system" scope="singleton" class="org.dykman.gossamer.System" />
+	<bean id="out" scope="request" 
+		factory-bean="system"  factory-method="getStdOut" destroy-method="flush"/>
+
+	<bean id="err" scope="request" 
+		factory-bean="system"  factory-method="getStdErr" destroy-method="flush"/>
+	
+	<bean id="requestProcessor" class="org.dykman.gossamer.script.ScriptRequestProcessor"
+		scope="prototype" >
+		<!--
+		<property name="controller" ref="clientController"/>
+		 -->
+
+		<property name="pathInfo" ref="handlerPathInfo"/>
+		<property name="handlerFactory" ref="handlerFactory"/>
+		<property name="scriptBase" value="${gossamer.path.base}/${gossamer.script.handlers}" />
+	</bean>
+
+
+	<bean id="scriptBeanFactory" scope="prototype"
+		class="org.dykman.gossamer.script.ScriptBeanFactory">
+		<property name="scriptBase" value="${gossamer.path.base}/${gossamer.script.beans}"/>
+	</bean>
+
+	<bean id="viewManagerFactory" scope="singleton"
+		class="org.dykman.gossamer.xsl.SmartXslViewManagerFactory" />
+
+	<bean id="viewManager" scope="request"
+		factory-bean="viewManagerFactory"
+		factory-method="createViewManager" >
+		<constructor-arg ref="clientDevice" />
+		<property name="xslResolver" ref="xslResolver" />
+		<property name="styleResolver" ref="styleResolver" />
+	</bean>
+	
+	<bean id="sourceLocator" scope="request"
+		class="org.dykman.gossamer.dexter.FallbackSourceLocator">
+		<property name="resourceRoot" value="${gossamer.path.base}/${gossamer.xsl.basePath}" />
+		<property name="connectionId" value="${gossamer.wurfl.db}" />
+	</bean>
+	<bean id="requestHolder" scope="request"
+		class="org.dykman.gossamer.webapp.ServletRequestHolder">
+	</bean>
+
+	<bean id="responseHolder" scope="request"
+		class="org.dykman.gossamer.webapp.ServletResponseHolder">
+	</bean>
+
+
+<!--
+	<bean id="cookieManagerFactoryImpl" scope="request" 
+		class="org.dykman.gossamer.webapp.cookie.CookieManagerFactoryImpl" />
+
+	<bean id="cookieManagerFactory" scope="request"
+		factory-bean="cookieManagerFactoryImpl"
+		factory-method="newInstance" >
+		<constructor-arg value="${gossamer.cookie.domain}" />
+		<constructor-arg ref="requestHolder" />
+		<constructor-arg ref="responseHolder" />
+	</bean>
+
+  -->
+	<!--  start of XSL decorator magic -->
+	
+	<bean id="transformerFactory"  scope="request"
+		class="org.dykman.gossamer.xsl.SimpleTransformerFactory">
+		<property name="deviceProfileFactory">
+			<ref bean="deviceProfileFactory"/>
+		</property>
+		<property name="xslTransformerFactory">
+			<ref bean="xslTransformerFactory"/>
+		</property>
+		<property name="xslResolver">
+			<ref bean="xslResolver"/>
+		</property>
+		<property name="xslAttribute" value="${gossamer.client.xslAttribute}" />
+	</bean>
+
+
+
+	<bean id="xslTransformerFactory" scope="singleton"
+		class="org.dykman.gossamer.xsl.SimpleXslTransformerFactory" >
+		<property name ="cacheTemplates" value="${gossamer.xsl.cacheTemplates}"/>
+<!--
+		<property name ="forcedDomain" value="${gossamer.xsl.forcedDomain}"/>
+ -->
+	</bean>
+
+	<bean id="xslResolver" scope="request"
+		class="org.dykman.gossamer.xsl.SimpleXslResolver" >
+		<property name="basePath" value="${gossamer.xsl.basePath}" />
+		<property name="formatAttribute" value="${gossamer.client.formatAttribute}" />
+		<property name="styleResolver"><ref bean="styleResolver"/></property>
+	</bean>
+  
+	<bean id="styleResolver" scope="session"
+		class="org.dykman.gossamer.xsl.StyleResolver">
+		<property name="style" value="${gossamer.xsl.defaultStyle}" />
+	</bean>
+
+	<bean id="documentRenderer" scope="prototype"
+		class="org.dykman.gossamer.xml.DocumentRenderer">
+		<property name="xslResolver" ref="xslResolver"/>
+		<property name="transformerFactory" ref="xslTransformerFactory"/>
+		<property name="siteProperties" ref="siteProperties"/>
+		<property name="device" ref="clientDevice"/>
+	</bean>	
+
+	<alias name="clientDevice" alias="device" />
+
+	<bean id="clientDevice" scope="request" 
+		factory-bean="deviceContainer"
+		factory-method="getObject" >
+	</bean>
+
+	<bean id="logManager" scope="singleton" 
+		class="org.dykman.gossamer.log.SimpleLogManager">
+	<property name="logBase" value="${gossamer.path.base}/${gossamer.log.basePath}"></property>
+	</bean>
+
+	<bean id="deviceContainer" scope="request" 
+		class="org.dykman.gossamer.util.Container">
+	</bean>
+
+	<bean id="siteProperties" class="org.dykman.gossamer.webapp.SiteProperties"
+		scope="singleton" >
+		<property name="props" value="${gossamer.path.base}/${gossamer.site.properties}" />
+	</bean>
+
+	<bean id="jsonRenderer" scope="prototype"
+		class="org.dykman.gossamer.xml.JSON2" >
+		<property name="encoding" value="UTF8" />
+		<property name="device" ref="clientDevice"/>
+	</bean>
+
+<!-- 
+	<bean id="imageProcessor" scope="prototype"
+		class="org.dykman.gossamer.image.ImageIOProcessor" />
+ -->
+	<bean id="uploadManager" scope="request" destroy-method="destroy"
+		class="org.dykman.gossamer.upload.SimpleUploadManager" >
+		<property name="tempDirectory" value="/tmp" />
+	</bean>	
+	
+	<bean id="baseUrl" scope="request"
+		class="org.dykman.gossamer.core.StringContainer" />
+
+   <bean id="userState" scope="session" 
+        class="org.dykman.gossamer.session.UserStateImpl" >
+		  <property name="request" ref="userRequest" />
+	</bean>
+    
+	 <bean id="userRequest" scope="request"
+		factory-bean="requestHolder"
+		factory-method="getRequest"/>
+
+	 <bean id="userResponse" scope="request"
+		factory-bean="responseHolder"
+		factory-method="getServletResponse"/>
+
+	<bean id="beanFactory"  scope="singleton"
+		factory-bean="beanFactoryContainer"
+		factory-method="getBeanFactory"/>
+
+	<bean id="beanFactoryContainer" scope="singleton"
+		class="org.dykman.gossamer.spring.BeanFactoryPeer"/>
+
+
+	<bean id="handlerPathInfo" scope="request"
+		class="org.dykman.gossamer.webapp.PathInfo" >
+		<property name="trim" value="true" />
+	</bean>
+
+	<bean id="requestInfo" scope="request"
+		class="org.dykman.gossamer.webapp.RequestInfo" >
+		<property name="locationService" ref="GeoIpLocationService" />
+		<property name="requestHolder" ref="requestHolder" />
+	</bean>
+
+	
+	<bean id="pathInfoString" scope="request"
+		factory-method="getPathInfoString" 
+		factory-bean="requestInfo" >
+	</bean>
+
+	<bean id="GeoIpLocationService" scope="singleton"
+		class="org.dykman.gossamer.location.LocationServiceWrapper">
+		<property name="dataFile" value="${gossamer.path.base}/${gossamer.geoip.datafile}" />
+	</bean>
+
+	<bean id="responseWriterFactory" scope="request"
+		class="org.dykman.gossamer.webapp.ResponseWriterFactory" >
+		<property name="requestHolder" ref="requestHolder" />
+		<property name="responseHolder" ref="responseHolder" />
+	</bean>
+
+	<bean id="responseWriter" scope="request"
+		factory-bean="responseWriterFactory"
+		factory-method="createResponseWriter" 
+		destroy-method="destroy" />
+
+	<bean id="_procController" scope="request" 
+		class="org.dykman.gossamer.controller.SerialController"/>
+
+	<bean id="procController"  scope="request"
+		class="org.dykman.gossamer.controller.ParallelController">
+		<property name="scatterRef" value="scatter"/>
+	</bean>
+
+	<bean id="workerThreadManager" scope="singleton"
+		class="org.dykman.gossamer.controller.WorkerThreadManager" 
+		init-method="init" lazy-init="true">
+		<property name="minThreads" value="5"/>
+		<property name="maxThreads" value="10"/>
+		<property name="reserveThreads" value="2"/>
+		<property name="timeToLive" value="10000"/>
+		<property name="timeToHang" value="500"/>
+	</bean>
+	
+	<bean id="scatter" scope="prototype"
+		class="org.dykman.gossamer.spring.WorkerScatter">
+		<property name="timeout" value="5000"/>
+		<property name="threadManager" ref="workerThreadManager" />
+	</bean>
+
+	<bean id="_scatter" scope="prototype"
+		class="org.dykman.gossamer.spring.SimpleScatter">
+		<property name="timeout" value="5000"/>
+	</bean>
+		
+
+	<bean id="scriptHandler" scope="prototype"
+		class="org.dykman.gossamer.script.ScriptHandler" >
+		<property name="properties">
+			<map>
+				<entry>
+					<key><value>gossamer.defaultChannels</value></key>
+					<value>${gossamer.defaultChannels}</value>
+				</entry>
+			</map>
+		</property>
+<!-- 		
+		<property name="bindings"><ref bean="scriptBindings" /></property>
+ -->
+
+	</bean>
+	
+	
+	<bean id="scriptAdapterFactory" scope="singleton"
+		class="org.dykman.gossamer.script.ScriptAdapterFactory" />
+
+	<bean id="defaultScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.SimpleScriptAdapter" />
+	
+	<bean id="bshScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.SimpleScriptAdapter" >
+		<property name="compileHint" value="false" />
+	</bean>
+
+	<bean id="jsScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.RhinoScriptAdapter" />
+	
+	<bean id="pyScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.JythonScriptAdapter" />
+	
+	<bean id="phpScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.QuercusScriptAdapter" />
+
+	<bean id="scmScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.SiscScriptAdapter" />
+
+	<bean id="slScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.SleepScriptAdapter" />
+	
+<!-- smalltalk 
+	<bean id="stScriptAdapter" scope="prototype"
+		class="org.dykman.gossamer.script.AthenaScriptAdapter" >
+		<property name="imagePath" value="${gossamer.athena.image}" />
+	</bean>
+ -->
+	
+	<bean id="scriptBindings" class="java.util.LinkedHashMap" scope="prototype">
+		<constructor-arg>
+			<map>
+				<entry key="out" value-ref="out"/>
+				<entry key="err" value-ref="err"/>
+				<!--  user session-->
+				<entry key="session" value-ref="userState"/>
+				<!--  view manager -->
+				<entry key="vm" value-ref="viewManager" />
+				<!-- upload manager -->
+				<entry key="uploads" value-ref="uploadManager" />
+				<!--  bean factory proxy -->
+				<entry key="factory" value-ref="beanFactory" />
+				<!--  site variables -->
+				<entry key="site" value-ref="siteProperties" />
+				<!--  path info (deprecated) -->
+  				<entry key="reqp" value-ref="pathInfoString"/>
+				<!--  path info -->
+  				<entry key="requestInfo" value-ref="requestInfo"/>
+				<!-- HttpServletRequest object -->
+				<entry key="request" value-ref="userRequest"/>
+				<!-- HttpServletResponse object -->
+				<entry key="response" value-ref="userResponse"/>
+				<!--  client device profile -->
+				<entry key="device" value-ref="clientDevice" />
+				<!--  request processor -->
+				<entry key="rp" value-ref="requestProcessor" />
+				<!-- unique per runtime instance -->
+				<entry key="id" value-ref="runtimeIdentifier" />
+
+				<!--  direct response mechanism -->
+				<entry key="writer" value-ref="responseWriter"/>
+
+				<!--  hibernate session factory  -->
+				<entry key="hsm" value-ref="hibernateSessionManager" />
+				<!--  alias for same  -->
+				<entry key="hsf" value-ref="hibernateSessionManager" />
+
+				<!--  jdbc connection factory  -->
+				<entry key="jdbc" value-ref="jdbcManager" />
+				
+				<entry key="installBase" value-ref="installBase" />
+
+				<!-- obsolete.deprecated  -->
+				<entry key="ctl" value-ref="procController" />
+ <!--
+				<entry key="cmf" value-ref="cookieManagerFactory" />
+ -->
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>

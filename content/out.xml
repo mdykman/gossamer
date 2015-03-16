@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MarkTest>
+	<array>
+		<element>one</element>
+		<element>two</element>
+		<element>three</element>
+	</array>
+	<bar>bar</bar>
+	<foo>foo</foo>
+	<ints>
+		<element>42</element>
+		<element>25</element>
+		<element>3</element>
+		<element>21</element>
+	</ints>
+</MarkTest>

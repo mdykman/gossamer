@@ -1,0 +1,51 @@
+<html>
+<head>
+
+<script type='text/javascript' src='dwr/interface/controller.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type="text/javascript" src="js/Agora.js"></script>
+
+<script>
+
+var dispatcher = new Agora();
+
+dispatcher.listen("groovy", {
+  namecheck: function(result) { }
+ });
+
+function checkName(input) {
+		dispatcher.request('groovy', 'namecheck', {username: input.value}, function(d) {
+   		var form = input.parentNode;
+   		if(d.status == 0) {
+   			form.submit.disabled = false;
+   		} else {
+   			form.submit.disabled = true;
+   			form.username.focus();
+   			form.username.select();
+   		}
+   		var el = document.getElementById('message');
+   		var tt = document.createTextNode(d.message);
+   		var bb = document.createElement('b');
+   		bb.appendChild(tt);
+   		if(el.firstChild) {
+   			el.replaceChild(bb,el.firstChild);
+   		}
+   		else {
+   			el.appendChild(bb);
+   		}
+   	});
+}
+</script>
+</head>
+
+<body>
+Register Today!!!
+<form action="/register" method="post">
+	<input type="text" name="username" onchange="checkName(this); return false;"/><br/>
+	<input type="password" name="password" /><br/>
+	<input type="text" name="email" /><br/>
+	<input name="submit" type="submit" value="register" />
+</form>
+<div id="message"></div>
+</body>
+</html>

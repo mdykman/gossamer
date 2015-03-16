@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
+	metadata-complete="true" version="2.5">
+
+	<!-- Context Configuration locations for Spring XML files -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/applicationContext-gossamer.xml
+			/WEB-INF/applicationContext-user.xml
+		</param-value>
+	</context-param>
+
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
+	<filter>
+		<filter-name>baseurl-filter</filter-name>
+		<filter-class>org.dykman.gossamer.webapp.BaseUrlFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>baseurl-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+	
+	<filter>
+		<filter-name>upload-handler</filter-name>
+		<filter-class>org.dykman.gossamer.upload.UploadFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>upload-handler</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>request-mapper</filter-name>
+		<filter-class>
+			org.dykman.gossamer.webapp.rewrite.MappingFilter
+		</filter-class>
+		<init-param>
+			<param-name>log</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>request-mapper</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
+
+
+
+	<servlet>
+		<servlet-name>dexter-servlet</servlet-name>
+		<display-name>Gossamer Dexter Servlet</display-name>
+		<servlet-class>org.dykman.gossamer.dexter.DexterServlet2</servlet-class>
+		<init-param>
+			<param-name>xsl-files</param-name>
+			<param-value>xsl</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contentType</param-name>
+			<param-value>application/xslt+xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dexter-servlet</servlet-name>
+		<url-pattern>/xsl/*</url-pattern>
+		<load-on-startup>0</load-on-startup>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>QueryHandler</servlet-name>
+		<display-name>Gossamer Query Servlet</display-name>
+		<servlet-class>org.dykman.gossamer.webapp.HandlerServlet</servlet-class>
+		<init-param>
+			<param-name>smartPath</param-name>
+			<param-value>rq</param-value>
+		</init-param>
+		<init-param>
+			<param-name>renderPath</param-name>
+			<param-value>render</param-value>
+		</init-param>
+		<init-param>
+			<param-name>xmlPath</param-name>
+			<param-value>xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jsonPath</param-name>
+			<param-value>json</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>QueryHandler</servlet-name>
+		<url-pattern>/rq/*</url-pattern>
+		<url-pattern>/json/*</url-pattern>
+		<url-pattern>/xml/*</url-pattern>
+		<url-pattern>/render/*</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>

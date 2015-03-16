@@ -1,0 +1,20 @@
+
+<div>
+<div>
+history of <span dx:value="result/script">scriptname</span>
+</div>
+
+<div >
+<a href="javascript:void(0);" dx:attr="onclick:loadScript('{result/script}');">current</a>
+</div>
+
+<div dx:each="result/versions/archive">
+<a href="javascript:void(0);" dx:attr="onclick:loadArchiveScript('{filename}');" dx:value="time" >version 1</a>
+</div>
+
+
+
+<div dx:ignore=""><a href="" >version 2</a></div>
+<div dx:ignore=""><a href="" >version 3</a></div>
+
+</div>

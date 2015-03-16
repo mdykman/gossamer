@@ -1,0 +1,142 @@
+body {
+background-color: #FDF3F8;
+}
+a{
+	text-decoration:none;
+}
+a.smaller{
+	font-size:12px;
+}
+p{
+	
+}
+#container{
+
+}
+#heading{
+	background-color: #FD91C8;
+	height:55px;
+	color:#FFFFFF;
+	font-size:24px;
+	font-weight: bold;
+	width: 80%;
+}
+#headingDecor{
+	background-color: #FD0033;
+	height:3px;
+	width: 80%;
+}
+#login{
+	background-color: #FFDDEE;
+	height:200px;
+	width: 150px;
+	padding:5px;
+}
+#logindecor{
+	background-color: #FD0033;
+	height:3px;
+	width: 150px;
+}
+#logoDecorator{
+	position:relative;
+	top:5px;
+	text-align:center;
+}
+#logo{
+	position:relative;
+	left:160px;
+	width:50%;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.title {
+	font-family:Ariel;
+	color:#FD0033;
+	font-size:34px;
+	font-weight: bold;
+	font-variant:small-caps;
+}
+
+#main{
+	position:absolute;
+	background-color: #FFFFFF;
+	height:400px;
+	width: 75%;
+	left:155px;
+	top:50px;
+	border: 1px solid black;
+}
+#footer{
+	position:absolute;
+	top:450px;
+	text-align:center;
+	width: 80%;
+}
+#copy
+{
+	float:left;
+	padding:10px;
+	width:50%;
+}
+#register{
+	padding:13px;
+	float:left;
+	border: 0px solid black;
+}
+
+.floatElement
+{
+	float:left;
+}
+
+.formLabel{
+	float: left;
+	width: 50px;
+	color: #323232;
+	font-family: sans-serif;
+					}
+.formLabel2{
+	float: left;
+	width: 100px;
+	color: #323232;
+	font-family: sans-serif;
+	border: 0px solid black;
+					}
+
+.formElement{
+	float: left;
+	width: 70px;
+}
+.formElement2{
+	float: left;
+	width: 170px;
+	border: 0px solid black;
+}
+.inputElement{
+	font-family:TrebuchetMS;
+  font-size:6pt;
+  font-weight:bold;
+  background-color:336699;
+  border-color:336699;
+  border-style:inset;
+  border-width:1px;
+  color:FFFFFF;
+	width: 15em;
+	text-align: left;
+}
+
+.subContainer{
+	width: 250px;
+	top: 0px;
+	left: 0px;
+}
+.subContainer2{
+	float:left;
+	width: 300px;
+	top: 0px;
+	left: 0px;
+						 }
+.clearboth{
+	 clear: both; 
+	 				}
