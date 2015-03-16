@@ -1,0 +1,46 @@
+## Introduction ##
+
+Data comprises the very soul of an application.  The forms of the data, how it is stored and how it is to be accessed and updated should be the decision of the application designer, not the dictate of the framework used to interface with it.
+
+When it comes to the model, Gossamer offers no prescribed paradigm, only choices.
+
+
+
+> ### JDBC ###
+SQL is a powerful language; a fully-fledged relational algebra.  It allows us to compose arbitrarily complex queries, join external tables and perform rapid mass updates.  It can be both verbose and subtle and will likely never boast the speed of some of the NoSQL distributed stores, but it is the rare mature application that operates without a relational backbone.
+
+Gossamer provides a built-in JDBC Manager. It is implemented as a [global variable](Globals.md) _jdbc_ and can be configured by adding/editing `DataSources` to `applicationContext-user.xml` which resides in `$GOSSAMER_HOME/webapp/WEB-INF`. Examples for specifying custom data sources are provided.  JDCB credentials are usually specified in jdbc.properties in the same directory.
+
+One of the provided examples is a template for a c3p0 connection pool which can be used with any vendor's jdbc-compliant driver.
+
+Another provided example shows how to implement a sqllite `DataSource`.  Gossamer uses sqllite internally in the device identification stack and the template fallback chains.
+
+The manager guarantees an isolated connection per request which is only created on demand. Connections and outstanding statements are closed (or released to the pool) at the end of every request cycle. There is no need for the programmer/user to close a connection; if fact, it should be avoided as, in an application environment, other scripts may require the use of that same connection.
+
+As most JVM-implemented scripting languages have some facility to manipulate Java objects, JDBC may be used to implement your application model, regardless of the language, or languages you choose to implement with.
+
+> ## Hibernate ##
+Object Relation Managers (ORMs) are very useful for common CRUD operations and can accelerate development of many kinds of tasks. They leverage a relational back end and provide higher-order operators for the data, but they offer only a subset of the power of native SQL.
+
+Gossamer provides a built-in [Hibernate](http://www.hibernate.org/) Session Manager. It is implemented as a [global variable](Globals.md) _hsm_ and is  configured by adding `SessionFactory` object to `applicationContext-user.xml` which resides in `$GOSSAMER_HOME/webapp/WEB-INF`.  An example for specifying a custom Hibernate `SessionFactory` is provided.
+
+The manager guarantees an isolated open session per request which is only created on demand. Sessions are rolled-back on exception and otherwise committed.  There is no need for the programmer/user to close a Session; if fact, it should be avoided as, in an application environment, other scripts may require the use of that same Session.
+
+As with any Hibernate interface, you may perform ad-hoc queries against your defined objects via HQL or use named queries stored in your hibernate configuration files.
+
+Gossamer does not provide any specific tools for managing your hibernate configuration files.
+
+As most JVM-implemented scripting languages have some facility to manipulate Java objects, hibernate may be used to implement your application model, regardless of the language, or languages you choose to implement with.
+
+> ## Language-Specific Interfaces ##
+If you are a groovy programmer, you might prefer to use Groovy SQL. Go ahead:
+```
+def sql = new SQL(jdbc.myconnection)
+// now go do you groovy stuff
+sql.execute(...
+```
+Ruby and others privde something analagous.  If you are happy with those interfaces and remaining within those languages and they suit the scope of the application at hand, then any of these are excellent choices.
+> ## Whatever You Want ##
+As most JVM-implemented scripting languages have some facility to manipulate Java objects, any interface implemented in Java is available for you to use.  You may decide to include NoSQL clients, a BDB store, or something entirely else. For tighter integration, you might make your interface available as a bean in `applicationContext-users.xml` (see [factory](Globals#Factory.md)) or even publish it as a global variable.
+
+If you come up with something interesting, let us know; we would be happy to share it.

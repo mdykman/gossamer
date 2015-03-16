@@ -1,0 +1,157 @@
+
+
+> ### Paths ###
+In Gossamer's default configuration, there are 4 uri prefixes which signal script execution: json, xml, rq, and render.  These prefixes are hints for the [View](View.md) and may generally be ignored while writing our controller.  All 4 paths invoke scripts under `scripts/controllers`
+```
+
+/xml/myscript  ->  $GOSSAMER_HOME/scripts/controllers/myscript.<ext>
+/json/foo/bar  ->  $GOSSAMER_HOME/scripts/controllers/foo/bar.<ext>
+```
+In the latter example, if a script had been found at
+```
+$GOSSAMER_HOME/scripts/controllers/foo.<ext>
+```
+Gossamer would set the path info to `'/bar'` and executed `foo.<ext>`.
+
+If we had a script at
+```
+`$GOSSAMER_HOME/scripts/controllers/module/script.<ext>`
+```
+and the following uri was invoked, `/rq/module/script/apples`, the handler would locate the script named bar (regardless of which scripting extension) and set '/apples' as the path info.  See [requestInfo](RequestInfo.md) for more information on using the path info from within a script.
+
+See [extensions](Scripting#Extensions.md) for details on extension resolution.
+
+> ### Supported Languages ###
+  * groovy (1.8.0)
+  * javascript (rhino1\_7R3)
+  * jruby 1.6.4 (ruby-1.9.2-p136)
+  * python (jython 2.5.2)
+  * clojure (1.3.0)
+  * PHP
+  * scheme
+  * bean shell
+  * jelly
+  * judo
+  * pnuts
+  * Judo
+  * awk
+  * sleep
+
+> #### In Development ####
+  * small talk
+  * AscpectJ
+  * scala
+  * tcl
+
+As there remain some minor inconsistencies in implementations of the JSR 223 Scripting Engine Interface and it is vague on the subject of return values, Gossamer uses the `ScriptAdapter` to to normalize the interface and return values.  Many compliant scripting engines can be activated merely by introducing the to the class path and declaring them in the `.extensions` file (see [extensions](Scripting#Extensions.md)). The default `SimpleScriptAdapter` handles them adequately.  Groovy, (j)ruby, clojure, bean shell, and AspectJ are examples of these. Others require custom `ScriptAdapters`: (p/j)ython, scheme, awk, etc. .
+
+> ### Result Values ###
+
+In normal operation, a gossamer controller script is expected to return an item of data; an object, an array, a map, a primitive  nested to arbitrary depth.  How the data is rendered to the client by the [View](View.md) is entirely dependent on how the script was invoked.
+
+The serializer that renders these objects into json or XML, has very simple rules.  It expect these types, nested at any level:
+  * Lists
+  * Maps
+  * Arrays
+  * Primitives/Primitive Objects
+  * POJOs
+  * DOM Nodes
+
+Objects of other types many cause eccentric behaviour
+
+A facility for plugging in special handlers for specific objects is under development.
+
+> ### Global Variables ###
+
+The [global variables](Globals.md) are only visible to controllers.  References to them, or objects they produce may be passed into library routines.
+
+```
+ruby:
+c = $jdbc.get('user')
+return getResult(c,args)
+```
+Gets a JDBC Connection (defined as userDataSource in applicationContext-user.xml) and passes it to a routine expecting a JDBC connection and a Map of parameters.
+
+Some of the most important of these [Global Variables](Globals.md) are listed below.
+
+  * [args](RequestArgs.md)
+  * [vm](ViewManager.md)
+  * [session](Session.md)
+  * [requestInfo](RequestInfo.md)
+  * [jdcb](JDBC.md)
+  * [hsf](HSF.md)
+
+
+> ### Direct Output ###
+
+For those odd occasions when Gossamer's model of object-to-formatted output does not meet the task at hand, your controller may instead choose to generate response data directly.
+
+> The [writer](Globals#Writer.md) is used to effect direct-to-stream output.  The stdout of each scrip engine is bound to the HttpResponse Writer and so is designed for character output.  To effect binary output, the output stream should be acquired from the writer.
+
+The writer is also used to set the content type of the direct response.
+
+It should be noted that controllers so written will not respond to the view modes.  The output will be exactly as it has been coded to be.
+
+> #### Emitting a Text Response Directly ####
+```
+in groovy:
+writer.setMimeType('text/plain')
+println """
+  This is a simple
+  block of text
+"""
+//return null to signal that no further processing is required.
+return null
+
+```
+
+> #### Emitting a Binary Response Directly ####
+```
+in groovy:
+writer.setMimeType('image/png');
+
+def proc = "dot -T png".execute()
+// fill the process' stdin
+proc.getOutputStream() <<< """
+digraph g {
+  A->B
+  B->C
+  A->C
+}
+""";
+// dump process stdout to web output stream 
+writer.getOutputStream() << proc.getInputStream();
+
+return null
+```
+
+> ### Extensions ###
+There is a file named `.extensions` in the `scripts/controllers` directory which instructs Gossamer what scripting languages to seek in response to a web request.
+
+For example, if a request uri `/xml/myscript` was being processed, we would search `scripts/controllers` (see [Paths](Controller#Paths.md)); first for a file named `myscript.groovy`, next `myscript.py`, and so on. The first file found is assumed to be a script of the corresponding type which is then [executed](#Execution.md).
+
+In this case, once we exhaust the list, if no file is found, an error is returned.
+
+The is the default `.extensions` file in the Gossamer distribution
+```
+groovy
+py
+rb
+jy
+js  
+jsl
+php
+bsh  
+pnut
+scm
+sl
+st
+tcl
+```
+
+This extensions file applies to all the sub-directories of `scripts/controllers` as well unless they contain their own `.extensions` file to control the script loading order or to limit for specific languages.
+
+> ### Execution ###
+Some scripting engines will compile scripts into byte code, other are interpreter-only.  For those engines that will compile, gossamer caches compiled scripts and watches the modified time of the source file for queues to recompile. This caching can be disabled in `gossamer.properties`
+
+Once a script file has been selected for execution, Gossamer searches for an `__init` file having the same extension as the script and residing in the same directory.  If found, it's contents are prepended to the script before it is executed.  This is one means by which controllers may share common code.

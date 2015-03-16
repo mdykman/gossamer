@@ -1,0 +1,1 @@
+Result parameters associated with the HTTP request are made available to controllers via the global variable `args`.  It is a Map which uses String keys and String values.
